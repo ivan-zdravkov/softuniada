@@ -1,0 +1,21 @@
+html, body {
+	height: 100%
+}
+
+.lightblue {
+  background-color: #5b9ad0;
+}
+
+.footer-fixed-position {
+	position: inherit;
+	bottom: 0;
+}
+
+.font-weight-bold {
+	font-weight: bold;
+}
+
+.wrapper {
+	min-height: 100%;
+	margin-bottom: -30px; 
+}
