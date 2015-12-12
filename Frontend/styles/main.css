@@ -4,8 +4,58 @@ html, body {
 
 #body {
 	background-image: url(../images/background.jpg);
-	background-repeat: repeat;
-	opacity: 0.5;
+	min-width: 1024px;
+}
+
+#view {
+	min-height: 900px;
+	background-color: #333;
+	color: white;
+}
+
+#wrapper {
+	min-height: 1200px;
+	position: relative;
+}
+
+#main-content {
+	width: 90%;
+	margin: auto;
+
+}
+
+#main-header {
+	background-color: #333;
+}
+
+#main-header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#main-header li {
+    float: left;
+}
+
+#main-header li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#main-header li a:hover {
+    background-color: #111;
+}
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #333;
 }
 
 .lightblue {
@@ -21,11 +71,6 @@ html, body {
 	font-weight: bold;
 }
 
-.wrapper {
-	min-height: 100%;
-	margin-bottom: -30px; 
-}
-
 .row-margin-ignore {
 	margin-left: 0;
 	margin-right: 0;
@@ -34,3 +79,41 @@ html, body {
 .white {
 	background: white;
 }
+
+.float-right {
+	float: right;
+}
+
+.color-white {
+	color: white;
+}
+
+.text-align-center {
+	text-align: center;
+}
+
+.margin-top-20 {
+	margin-top: 20px;
+}
+
+.position-absolute {
+	position: absolute;
+} 
+
+.bottom-0 {
+	bottom: 0;
+}
+
+.left-38 {
+	left: 38%;
+}
+
+.margin-bottom-50 {
+	margin-bottom: 50px
+}
+
+.margin-bottom-20 {
+	margin-bottom: 20px;
+}
+
+
