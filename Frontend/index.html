@@ -23,6 +23,7 @@
 						<li><a href="/#/share">Share your experience</a></li>
 						<ul class="float-right">
 							<li><a href="/#/contactus">Contact us</a></li>
+							<li><a href="/#/register">Register</a></li>
 							<li><a href="/#/login">Log in</a></li>
 						</ul>
 					</ul>
@@ -42,11 +43,11 @@
 			</div>
 
 			<div class="col-xs-12 text-align-center">
-				<p class="color-white ">© 2015 - <span id="currentYear"></span> by Ivan and Marin, No Rights Reserved</p>
+				<p class="color-white ">© 2015 - <span id="currentYear"></span> by Ivan and Marin. No Rights Reserved</p>
 			</div>
 		</div>
 	</div>
-
+	<div id="fb-root"></div>
 
 	<script src="libs/angular/angular.js"></script>
 	<script src="libs/angular/angular-route.js"></script>
@@ -59,12 +60,12 @@
 	<script src="scripts/controllers/AppController.js"></script>
 	<script src="scripts/controllers/HomeController.js"></script>
 
-	<div id="fb-root"></div>
+
 	<script>
 		(function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
+			js = d.createElement(s); js.id = id; js.async = true;
 			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
@@ -74,6 +75,7 @@
 		yearSpan.innerHTML = curentYear;
 		</script>
 	<!--
+	<script id="facebook-jssdk" src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.5"></script>
 	<script src="scripts/controllers/AdsController.js"></script>
 	<script src="scripts/controllers/UserController.js"></script>
 	<script src="scripts/services/adsService.js"></script>

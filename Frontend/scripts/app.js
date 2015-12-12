@@ -30,13 +30,17 @@ app.config(['$routeProvider', function ($routeProvider) {
 			controller: 'HomeController',
 			isLogin: true
 		})
+		.when('/register', {
+			templateUrl: 'views/register.html',
+			controller: 'HomeController',
+			isLogin: true
+		})
 		.when('/login', {
 			templateUrl: 'views/login.html',
 			controller: 'HomeController',
 			isLogin: true
 		})
-		
-		// .otherwise({
-		// 	redirectTo: '/'
-		// });
+		.otherwise({
+			redirectTo: '/'
+		});
 }]);
