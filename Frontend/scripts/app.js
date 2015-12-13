@@ -12,32 +12,32 @@ app.config(['$routeProvider', function ($routeProvider) {
 		})
 		.when('/howto', {
 			templateUrl: 'views/howto.html',
-			controller: 'HomeController',
+			controller: 'HowToController',
 			isLogin: true
 		})
 		.when('/lifehacks', {
 			templateUrl: 'views/lifehacks.html',
-			controller: 'HomeController',
+			controller: 'LifeHacksController',
 			isLogin: true
 		})
 		.when('/share', {
 			templateUrl: 'views/shareyourexperience.html',
-			controller: 'HomeController',
+			controller: 'ShareController',
 			isLogin: true
 		})
 		.when('/contactus', {
 			templateUrl: 'views/contactus.html',
-			controller: 'HomeController',
+			controller: 'ContactUsController',
 			isLogin: true
 		})
 		.when('/register', {
 			templateUrl: 'views/register.html',
-			controller: 'HomeController',
+			controller: 'RegisterController',
 			isLogin: true
 		})
 		.when('/login', {
 			templateUrl: 'views/login.html',
-			controller: 'HomeController',
+			controller: 'LoginController',
 			isLogin: true
 		})
 		.otherwise({

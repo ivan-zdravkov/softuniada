@@ -1,8 +1,7 @@
 'use strict';
 
 app.controller('HomeController', 
-	['$scope',
-	function ($scope) {
+	['$scope', function ($scope) {
 		
 	}]
 );

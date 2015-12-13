@@ -11,6 +11,8 @@ html, body {
 	min-height: 900px;
 	background-color: #333;
 	color: white;
+	padding: 20px;
+	opacity: 0.9;
 }
 
 #wrapper {
@@ -110,4 +112,16 @@ html, body {
 
 .margin-bottom-20 {
 	margin-bottom: 20px;
+}
+
+.margin-auto {
+	margin: auto;
+}
+
+.text-align-right{
+	text-align: right;
+}
+
+.resize-vertical {
+	resize: vertical;
 }
