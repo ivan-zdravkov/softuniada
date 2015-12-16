@@ -12,18 +12,18 @@ html, body {
 	background-color: #333;
 	color: white;
 	padding: 20px;
-	opacity: 0.9;
+	opacity: 0.95;
+	overflow: auto;
 }
 
 #wrapper {
 	min-height: 1200px;
-	position: relative;
 }
 
 #main-content {
 	width: 90%;
 	margin: auto;
-
+	margin-bottom: 30px;
 }
 
 #main-header {
@@ -54,10 +54,13 @@ html, body {
 }
 
 #footer {
-	position: absolute;
-	bottom: 0;
 	width: 100%;
-	background-color: #333;
+	background: url('../images/footer.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	/*background-color: #333;*/
+	height: 400px;
+	overflow: hidden;
 }
 
 .lightblue {
@@ -124,4 +127,33 @@ html, body {
 
 .resize-vertical {
 	resize: vertical;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+.max-height-300 {
+	max-height: 300px;
+}
+
+.margin-top-20 {
+	margin-top: 20px;
+}
+
+.width-40 {
+	width: 40px;
+}
+
+.col-padding-ignore {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.ta-toolbar {
+    background-color: #F0F0F0;
+    padding: 10px 10px 5px;
+    margin-left: 0px;
+    border: 1px solid #EEE;
+    border-radius: 5px 5px 0 0;	
 }
