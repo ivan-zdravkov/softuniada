@@ -76,6 +76,11 @@
     <Build Include="Scripts\Tables\Identity\AspNetRoleClaims.sql" />
     <None Include="Scripts\Post-Deployment\Seed\IdentityTables\AspNetRoles.sql" />
     <None Include="Scripts\Post-Deployment\Seed\IdentityTables\AspNetUsers.sql" />
+    <Build Include="Scripts\Tables\Category.sql" />
+    <Build Include="Scripts\Tables\Status.sql" />
+    <Build Include="Scripts\Tables\Tag.sql" />
+    <Build Include="Scripts\Tables\Article.sql" />
+    <Build Include="Scripts\Tables\ArticleTag.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Post-Deployment\Initialize\Initialize.sql" />
@@ -83,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
+    <None Include="Scripts\Post-Deployment\Seed\Category.sql" />
+    <None Include="Scripts\Post-Deployment\Seed\Status.sql" />
+    <None Include="Scripts\Post-Deployment\Seed\Tag.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Post-Deployment\Seed\IdentityTables\AspNetUserRoles.sql" />
