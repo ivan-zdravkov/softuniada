@@ -14,6 +14,9 @@
 	[SecurityStamp]			nvarchar(max)			NULL,
 	[TwoFactorEnabled]		bit						NOT NULL,
 	[UserName]				nvarchar(256)			NULL,
+	[FirstName]				nvarchar(100)			NULL,
+	[LastName]				nvarchar(100)			NULL,
+	[Birthday]				datetime2				NULL,
 	
 	[CreatedBy]				nvarchar(450)			NULL,
 	[CreatedAt]				datetime				NULL,
