@@ -20,13 +20,17 @@ app.controller('LoginController',
 		$scope.login = function () {
 			if (!$scope.email) {
 				$scope.invalidEmail = true;
+			} else {
+				$scope.invalidEmail = false;
 			}
 
 			if (!$scope.password) {
 				$scope.invalidPassword = true;
+			} else {
+				$scope.invalidPassword = false;
 			}
 
-			if ($scope.email && $scope.password) {
+			if (!$scope.invalidEmail && !$scope.invalidPassword) {
 				var loginObj = {
 					email: $scope.email,
 					passowrd: $scope.passowrd

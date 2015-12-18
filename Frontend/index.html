@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="styles/textAngular.css">
 	<link rel="stylesheet" href="libs/font-awesome-4.5.0/css/font-awesome.min.css">
 
+	<link href='https://fonts.googleapis.com/css?family=Fjord+One' rel='stylesheet' type='text/css'>
+
 	<title>Do it yourself</title>
 </head>
 <body ng-app="app" ng-controller="AppController" id="body">
@@ -43,9 +45,20 @@
 					data-show-faces="false" data-share="true">
 				</div>
 				<div class="margin-top-20">
-					<a href="https://www.facebook.com/IShareYouLearnWeWin/" target="_blank">
-						<img src="images/facebook-blue.ico" alt="facebook logo" class="width-40">
-					</a>
+					<div class="display-inline-block margin-right-10">
+						<a href="https://www.facebook.com/IShareYouLearnWeWin/" target="_blank">
+						<div class="size-25">
+							<div id="facebook-sprite"></div>
+						</div>
+						</a>
+					</div>
+					<div class="display-inline-block">
+						<a href="https://www.facebook.com/IShareYouLearnWeWin/" target="_blank">
+						<div class="size-25">
+							<div id="twitter-sprite"></div>
+						</div>
+						</a>
+					</div>
 				</div>
 			</div>
 
@@ -81,6 +94,8 @@
 	<script src="scripts/controllers/LifeHacksController.js"></script>
 	<script src="scripts/controllers/ShareController.js"></script>
 	<script src="scripts/controllers/ContactUsController.js"></script>
+
+	<script src="scripts/directives/loader.js"></script>
 	
 
 

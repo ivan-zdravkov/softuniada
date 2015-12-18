@@ -28,14 +28,20 @@ app.controller('ContactUsController',
 		$scope.send = function () {
 			if (!$scope.message.subject || $scope.message.subject.length <= 1) {
 				$scope.invalidSubject = true;
+			} else {
+				$scope.invalidSubject = false;
 			}
 
 			if (!$scope.message.email || $scope.message.email.length <= 5) {
 				$scope.invalidEmail = true;
+			} else {
+				$scope.invalidEmail = false;
 			}
 
 			if (!$scope.message.content || $scope.message.content.length < 4) {
 				$scope.invalidContent = true;
+			} else {
+				$scope.invalidContent = false;
 			}
 
 

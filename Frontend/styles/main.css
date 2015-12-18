@@ -2,6 +2,11 @@ html, body {
 	height: 100%
 }
 
+body {
+	font-family: 'Fjord One', serif;
+	font-size: 15px;
+}
+
 #body {
 	background-image: url(../images/background.jpg);
 	min-width: 1024px;
@@ -61,6 +66,32 @@ html, body {
 	/*background-color: #333;*/
 	height: 400px;
 	overflow: hidden;
+}
+
+#facebook-sprite {
+	width: 100px;
+	height: 96px;
+	background: url('../images/social-icons.jpg') 0 0;
+	zoom: 0.5;
+}
+
+#facebook-sprite:hover {
+	width: 100px;
+	height: 96px;
+	background: url('../images/social-icons.jpg') 0 -100px;
+}
+
+#twitter-sprite {
+	width: 100px;
+	height: 96px;
+	background: url('../images/social-icons.jpg') -100px 0;
+	zoom: 0.5;
+}
+
+#twitter-sprite:hover {
+	width: 100px;
+	height: 96px;
+	background: url('../images/social-icons.jpg') -100px -100px;
 }
 
 .lightblue {
@@ -156,4 +187,37 @@ html, body {
     margin-left: 0px;
     border: 1px solid #EEE;
     border-radius: 5px 5px 0 0;	
+}
+
+.margin-left-right-0 {
+	margin-left: 0;
+}
+
+.font-size-30 {
+	font-size: 30px;
+}
+
+.hover:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.max-height-300 {
+	max-height: 300px;
+}
+
+.margin-bottom-30 {
+	margin-bottom: 30px;
+}
+
+.display-inline-block {
+	display: inline-block;
+}
+
+.margin-right-10 {
+	margin-right: 10px;
 }
