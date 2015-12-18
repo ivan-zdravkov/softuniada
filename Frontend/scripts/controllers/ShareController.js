@@ -28,14 +28,20 @@ app.controller('ShareController',
 		$scope.send = function () {
 			if (!$scope.article.subject || $scope.article.subject.length < 1) {
 				$scope.invalidSubject = true;
+			} else {
+				$scope.invalidSubject = false;
 			}
 
 			if (!$scope.article.email || $scope.article.email.length <= 5) {
 				$scope.invalidEmail = true;
+			} else {
+				$scope.invalidEmail = false;
 			}
 
 			if (!$scope.article.content || $scope.article.content.length < 4) {
 				$scope.invalidContent = true;
+			} else {
+				$scope.invalidContent = false;
 			}
 
 

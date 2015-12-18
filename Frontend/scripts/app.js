@@ -3,6 +3,8 @@
 var app = angular.module('app', ['ngResource', 'ngRoute', 'textAngular']);
 
 
+app.constant('baseServiceUrl', 'XXXXXXXXXXX');
+
 app.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 		.when('/', {
@@ -16,6 +18,11 @@ app.config(['$routeProvider', function ($routeProvider) {
 			isLogin: true
 		})
 		.when('/lifehacks', {
+			templateUrl: 'views/lifehacks.html',
+			controller: 'LifeHacksController',
+			isLogin: true
+		})
+		.when('/lifehacks/:articleId', {
 			templateUrl: 'views/lifehacks.html',
 			controller: 'LifeHacksController',
 			isLogin: true
