@@ -14,6 +14,14 @@ namespace WebServices.Controllers
     [RoutePrefix("api/accounts")]
     public class AccountsController : BaseApiController
     {
+        [HttpGet]
+        [Route("users")]
+        public IHttpActionResult GetUsers()
+        {
+            return Ok(this.AppUserManager.Users.ToList().Select(u => new UserModel(u, this.AppUserManager, this.AppRoleManager)));
+        }
+
+        [HttpGet]
         [Route("user/{id:guid}", Name = "GetUser")]
         public async Task<IHttpActionResult> GetUser(string Id)
         {
@@ -27,25 +35,20 @@ namespace WebServices.Controllers
             return NotFound();
         }
 
-        [HttpGet]
-        [Route("users")]
-        public IHttpActionResult GetUsers()
+        [HttpDelete]
+        [Route("user/{id:guid}")]
+        public async Task<IHttpActionResult> DeleteUser(string id)
         {
-            return Ok(this.AppUserManager.Users.ToList().Select(u => new UserModel(u, this.AppUserManager, this.AppRoleManager)));
-        }
+            var user = await this.AppUserManager.FindByIdAsync(id);
 
-        [HttpPost]
-        [Route("isEmailAvailable")]
-        public IHttpActionResult EmailAvailable([FromBody]string email)
-        {
-            if (email != null)
+            if (user != null)
             {
-                return Ok(this.AppUserManager.FindByEmail(email) == null);
+                IdentityResult result = await this.AppUserManager.DeleteAsync(user);
+
+                return Ok();
             }
-            else
-            {
-                return BadRequest();
-            }
+
+            return NotFound();
         }
 
         [HttpPost]
@@ -68,6 +71,12 @@ namespace WebServices.Controllers
                     {
                         this.AppUserManager.AddToRole(user.Id, "User");
 
+                        string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                        await this.AppUserManager.SendEmailAsync(user.Id, 
+                            "Confirm your account", 
+                            "Please confirm your account by clicking <a href=\"" + new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code })) + "\">here</a>");
+
                         return Created(new Uri(Url.Link("GetUser", new { id = user.Id })), new UserModel(user, this.AppUserManager, this.AppRoleManager));
                     }
                     else
@@ -86,11 +95,63 @@ namespace WebServices.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("allRoles")]
-        public IHttpActionResult AllRoles()
+        [HttpPut]
+        [Route("changePassword")]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
         {
-            return Ok(this.AppRoleManager.Roles.ToList().Select(r => new RoleModel() { Id = r.Id, Name = r.Name }));
+            if (ModelState.IsValid)
+            {
+                IdentityResult result = await this.AppUserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    return Ok();       
+                }
+                else
+                {
+                    return BadRequest("Could not change password.");
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPost]
+        [Route("isEmailAvailable")]
+        public IHttpActionResult IsEmailAvailable([FromBody]string email)
+        {
+            if (email != null)
+            {
+                return Ok(this.AppUserManager.FindByEmail(email) == null);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("confirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("", "User Id and Code are required");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await this.AppUserManager.ConfirmEmailAsync(userId, code);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("The email could not be varified.");
+            }
         }
     }
 }
