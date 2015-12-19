@@ -5,7 +5,7 @@
 	[Email]					nvarchar(256)			NOT NULL,
 	[EmailConfirmed]		bit						NOT NULL,
 	[LockoutEnabled]		bit						NOT NULL,
-	[LockoutEnd]			datetimeoffset(7)		NULL,
+	[LockoutEndDateUtc]		datetimeoffset(7)		NULL,
 	[NormalizedEmail]		nvarchar(256)			NULL,
 	[NormalizedUserName]	nvarchar(256)			NULL,
 	[PasswordHash]			nvarchar(max)			NULL,
