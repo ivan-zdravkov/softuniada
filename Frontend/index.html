@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="styles/textAngular.css">
 	<link rel="stylesheet" href="libs/font-awesome-4.5.0/css/font-awesome.min.css">
 
-	<link href='https://fonts.googleapis.com/css?family=Fjord+One' rel='stylesheet' type='text/css'>
+	<!-- <link href='https://fonts.googleapis.com/css?family=Fjord+One' rel='stylesheet' type='text/css'> -->
 
 	<title>Do it yourself</title>
 </head>
@@ -52,13 +52,6 @@
 						</div>
 						</a>
 					</div>
-					<div class="display-inline-block">
-						<a href="https://www.facebook.com/IShareYouLearnWeWin/" target="_blank">
-						<div class="size-25">
-							<div id="twitter-sprite"></div>
-						</div>
-						</a>
-					</div>
 				</div>
 			</div>
 
@@ -73,18 +66,23 @@
 		</div>
 	</div>
 	<div id="fb-root"></div>
+	
+	<script src="libs/angular-1.4.8/angular.js"></script>
+	<script src="libs/angular-1.4.8/angular-route.js"></script>
+	<script src="libs/angular-1.4.8/angular-resource.js"></script>
+	<script src="libs/angular-1.4.8/angular-animate.js"></script>
 
-	<script src="libs/angular/angular.js"></script>
-	<script src="libs/angular/angular-route.js"></script>
-	<script src="libs/angular/angular-resource.js"></script>
-	<script src="libs/angular/angular-local-storage.js"></script>
 	<script src="libs/jquery/jquery-2.1.1.min.js"></script>
 	<script src="libs/bootstrap/js/bootstrap.js"></script>
+	<script src="libs/bootstrap/js/ui-bootstrap-tpls-0.14.3.min.js"></script>
+
 	<script src="libs/noty/jquery.noty.packaged.min.js"></script>
+	<script src="libs/lodash/lodash.min.js"></script>
+
 	<script src="libs/textAngular-1.4.6/dist/textAngular.min.js"></script>
 	<script src='libs/textAngular-1.4.6/dist/textAngular-rangy.min.js'></script>
 	<script src='libs/textAngular-1.4.6/dist/textAngular-sanitize.min.js'></script>
-	
+
 	<script src="scripts/app.js"></script>
 	<script src="scripts/controllers/AppController.js"></script>
 	<script src="scripts/controllers/HomeController.js"></script>
@@ -94,12 +92,10 @@
 	<script src="scripts/controllers/LifeHacksController.js"></script>
 	<script src="scripts/controllers/ShareController.js"></script>
 	<script src="scripts/controllers/ContactUsController.js"></script>
+	<script src="scripts/controllers/ArticleController.js"></script>
 
 	<script src="scripts/directives/loader.js"></script>
 	
-
-
-
 	<script>
 		(function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
@@ -113,14 +109,5 @@
 		var curentYear = new Date().getFullYear();
 		yearSpan.innerHTML = curentYear;
 		</script>
-	<!--
-	<script id="facebook-jssdk" src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.5"></script>
-	<script src="scripts/controllers/AdsController.js"></script>
-	<script src="scripts/controllers/UserController.js"></script>
-	<script src="scripts/services/adsService.js"></script>
-	<script src="scripts/services/authenticationService.js"></script>
-	<script src="scripts/services/userService.js"></script>
-	<script src="scripts/directives/uploadImageDirective.js"></script>
-	-->
 </body>
 </html>

@@ -1,0 +1,19 @@
+<div class="row row-margin-ignore">
+	<loader ng-if="isDataLoading"></loader>
+
+	<div class="col-xs-12 margin-bottom-30">
+		<div class="row margin-bottom-20 row-margin-ignore">
+			<span ng-bind="selectedArticle.title" class="wrap-text font-size-30"></span>
+			<span class="pull-right">{{selectedArticle.createdDate | date:'dd/MM/yyyy'}}</span>
+		</div>
+		<div class="row row-margin-ignore">
+			<!-- <div class="col-xs-4 col-padding-ignore">
+				<img src="" ng-src="{{selectedArticle.imageURL}}" alt="Article image"
+				class="col-xs-12 col-padding-ignore max-height-300">
+			</div> -->
+			<div class="col-xs-12">
+				<div ta-bind ng-model="selectedArticle.content"></div>
+			</div>
+		</div>
+	</div>
+</div>
