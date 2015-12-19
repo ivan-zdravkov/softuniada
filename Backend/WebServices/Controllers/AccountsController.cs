@@ -71,6 +71,12 @@ namespace WebServices.Controllers
                     {
                         this.AppUserManager.AddToRole(user.Id, "User");
 
+                        string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                        await this.AppUserManager.SendEmailAsync(user.Id, 
+                            "Confirm your account", 
+                            "Please confirm your account by clicking <a href=\"" + new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code })) + "\">here</a>");
+
                         return Created(new Uri(Url.Link("GetUser", new { id = user.Id })), new UserModel(user, this.AppUserManager, this.AppRoleManager));
                     }
                     else
@@ -123,6 +129,28 @@ namespace WebServices.Controllers
             else
             {
                 return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("confirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("", "User Id and Code are required");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await this.AppUserManager.ConfirmEmailAsync(userId, code);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("The email could not be varified.");
             }
         }
     }

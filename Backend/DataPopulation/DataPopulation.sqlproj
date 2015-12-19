@@ -60,7 +60,6 @@
     <Folder Include="Properties" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Tables" />
-    <Folder Include="Scripts\DataPopulate" />
     <Folder Include="Scripts\Tables\Identity" />
     <Folder Include="Scripts\Post-Deployment" />
     <Folder Include="Scripts\Post-Deployment\Initialize" />
