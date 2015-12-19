@@ -85,6 +85,7 @@
   <ItemGroup>
     <None Include="Scripts\Post-Deployment\Initialize\Initialize.sql" />
     <None Include="Scripts\Post-Deployment\Seed\Seed.sql" />
+    <None Include="DataPopulation.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />

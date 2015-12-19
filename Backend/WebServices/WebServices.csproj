@@ -180,6 +180,10 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Filters\GlobalExceptionFilterAttribute.cs" />
+    <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
+    <Compile Include="Models\RegisterUserModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Infrastructure\ApplicationDbContext.cs" />
     <Compile Include="Infrastructure\ApplicationUser.cs" />

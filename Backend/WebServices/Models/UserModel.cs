@@ -22,19 +22,22 @@ namespace WebServices.Controllers.Models
         public string LastModifiedBy { get; set; }
         public DateTime? LastModifiedAt { get; set; }
 
-        public UserModel(ApplicationUser user)
+        public UserModel(ApplicationUser user, ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
+            ApplicationUser createdByUser = userManager.FindByIdAsync(user.CreatedBy).Result;
+            ApplicationUser modifiedByUser = userManager.FindByIdAsync(user.LastModifiedBy).Result;
+
             this.Id = user.Id;
             this.Email = user.Email;
             this.UserName = user.UserName;
             this.FirstName = user.FirstName;
             this.LastName = user.LastName;
             this.Birthday = user.Birthday;
-            this.RoleIds = user.Roles.Select(r => r.RoleId).ToList();
-            this.CreatedBy = user.CreatedBy;
+            this.RoleIds = roleManager.Roles.Where(r => r.Users.Any(u => u.UserId == user.Id)).Select(r => r.Id);
+            this.CreatedBy = createdByUser != null ? String.Format("{0} {1}", createdByUser.FirstName, createdByUser.LastName) : String.Empty;
             this.CreatedAt = user.CreatedAt;
-            this.LastModifiedBy = user.LastModifiedBy;
-            this.LastModifiedAt = user.LastModifiedAt;
+            this.LastModifiedBy = modifiedByUser != null ? String.Format("{0} {1}", modifiedByUser.FirstName, modifiedByUser.LastName) : String.Empty;
+            this.LastModifiedAt = user.LastModifiedAt; 
         }
     }
 }

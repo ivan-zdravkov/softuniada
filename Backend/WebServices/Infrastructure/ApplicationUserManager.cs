@@ -11,7 +11,7 @@ namespace WebServices.Infrastructure
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store)
+        public ApplicationUserManager(UserStore<ApplicationUser> store) : base(store)
         {
         }
 
