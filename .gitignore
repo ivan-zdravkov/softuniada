@@ -1,3 +1,4 @@
 bin
 /Backend/DataPopulation/obj
 /Backend/WebServices/obj
+/Backend/WebServices/PrivateSettings.config
