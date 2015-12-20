@@ -19,6 +19,7 @@ namespace WebServices.Controllers
     {
         [HttpGet]
         [Route("users")]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult GetUsers()
         {
             return Ok(this.AppUserManager.Users.ToList().Select(u => new UserModel(u, this.AppUserManager, this.AppRoleManager)));
@@ -26,6 +27,7 @@ namespace WebServices.Controllers
 
         [HttpGet]
         [Route("user/{id:guid}", Name = "GetUser")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IHttpActionResult> GetUser(string Id)
         {
             var user = await this.AppUserManager.FindByIdAsync(Id);
@@ -40,6 +42,7 @@ namespace WebServices.Controllers
 
         [HttpDelete]
         [Route("user/{id:guid}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
             var user = await this.AppUserManager.FindByIdAsync(id);
