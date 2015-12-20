@@ -14,6 +14,7 @@ using WebServices.Models;
 namespace WebServices.Controllers
 {
     [RoutePrefix("api/accounts")]
+    [Authorize]
     public class AccountsController : BaseApiController
     {
         [HttpGet]
@@ -55,6 +56,7 @@ namespace WebServices.Controllers
 
         [HttpPost]
         [Route("create")]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> CreateUser(RegisterUserModel createUserModel)
         {
             if (ModelState.IsValid)
@@ -99,6 +101,7 @@ namespace WebServices.Controllers
 
         [HttpPut]
         [Route("changePassword")]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
@@ -122,6 +125,7 @@ namespace WebServices.Controllers
 
         [HttpPost]
         [Route("isEmailAvailable")]
+        [AllowAnonymous]
         public IHttpActionResult IsEmailAvailable([FromBody]string email)
         {
             if (email != null)
@@ -136,6 +140,7 @@ namespace WebServices.Controllers
 
         [HttpGet]
         [Route("confirmEmail", Name = "ConfirmEmailRoute")]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
         {
             if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))

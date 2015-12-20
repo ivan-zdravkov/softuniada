@@ -8,6 +8,7 @@ using WebServices.Models;
 namespace WebServices.Controllers
 {
     [RoutePrefix("api/roles")]
+    [Authorize]
     public class RolesController : BaseApiController
     {
         [HttpGet]
