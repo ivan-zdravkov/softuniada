@@ -1,9 +1,6 @@
 'use strict';
 
-var app = angular.module('app', [ 'ngRoute', 'textAngular', 'ngAnimate', 'ui.bootstrap']);
-// var app = angular.module('app', ['ngResource', 'ngRoute', 'textAngular']);
-
-
+var app = angular.module('app', [ 'ngRoute', 'textAngular', 'angularUtils.directives.dirPagination']);
 
 app.constant('baseServiceUrl', 'XXXXXXXXXXX');
 
@@ -17,11 +14,6 @@ app.config(['$routeProvider', function ($routeProvider) {
 		.when('/howto', {
 			templateUrl: 'views/howto.html',
 			controller: 'HowToController',
-			isLogin: true
-		})
-		.when('/lifehacks', {
-			templateUrl: 'views/lifehacks.html',
-			controller: 'LifeHacksController',
 			isLogin: true
 		})
 		.when('/article/:articleId', {

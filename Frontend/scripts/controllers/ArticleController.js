@@ -2,14 +2,10 @@
 
 app.controller('ArticleController', 
 	['$scope', '$routeParams', function ($scope, $routeParams) {
+		$('html,body').scrollTop(0);
 		$scope.articleId = $routeParams.articleId;
 		$scope.articles = [];
-		$scope.isDataLoading = true;
-
-		setTimeout(function () {
-			$scope.isDataLoading = false;
-			$scope.$apply();
-		}, 5000);
+		$scope.isDataLoading = false;
 
 		$scope.articles.push({
 			id: 1,
@@ -36,5 +32,9 @@ app.controller('ArticleController',
 				}
 			}
 		}
+
+		// $scope.displayDefinition.content = $scope.displayDefinition.content
+		// .replace(/color: rgb\(.{0,13}\);|float: none;|background-color: rgb\(.{0,13}\);/gi, '')
+		// .replace(/ style=""/gi, '');
 	}]
 );
