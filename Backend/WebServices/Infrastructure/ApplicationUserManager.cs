@@ -20,6 +20,16 @@ namespace WebServices.Infrastructure
             var appDbContext = context.Get<ApplicationDbContext>();
             var appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
 
+            appUserManager.EmailService = new Services.EmailService();
+
+            if (options.DataProtectionProvider != null)
+            {
+                appUserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(options.DataProtectionProvider.Create("ASP.NET Identity"))
+                {
+                    TokenLifespan = TimeSpan.FromHours(6)
+                };
+            }
+
             return appUserManager;
         }
     }
