@@ -2,7 +2,10 @@
 
 var app = angular.module('app', [ 'ngRoute', 'textAngular', 'angularUtils.directives.dirPagination']);
 
-app.constant('baseServiceUrl', 'XXXXXXXXXXX');
+app.constant('baseServiceUrl',
+	// 'http://95.158.165.1'
+	'http://localhost:13447'
+);
 
 app.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
@@ -18,6 +21,11 @@ app.config(['$routeProvider', function ($routeProvider) {
 		})
 		.when('/article/:articleId', {
 			templateUrl: 'views/article.html',
+			controller: 'ArticleController',
+			isLogin: true
+		})
+		.when('/article/:action/:articleId', {
+			templateUrl: 'views/createEditArticle.html',
 			controller: 'ArticleController',
 			isLogin: true
 		})

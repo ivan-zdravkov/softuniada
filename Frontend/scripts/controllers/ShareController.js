@@ -3,13 +3,13 @@
 app.controller('ShareController', 
 	['$scope', function ($scope) {
 		$scope.article = {};
-		$scope.invalidSubject = false;
+		$scope.invalidTitle = false;
 		$scope.invalidEmail = false;
 		$scope.invalidContent = false;
 
-		$scope.subjectChange = function () {
-			if ($scope.invalidSubject && $scope.article.subject && $scope.article.subject.length >= 1) {
-				$scope.invalidSubject = false;
+		$scope.titleChange = function () {
+			if ($scope.invalidTitle && $scope.article.title && $scope.article.title.length >= 1) {
+				$scope.invalidTitle = false;
 			}
 		};
 
@@ -26,10 +26,10 @@ app.controller('ShareController',
 		};
 
 		$scope.send = function () {
-			if (!$scope.article.subject || $scope.article.subject.length < 1) {
-				$scope.invalidSubject = true;
+			if (!$scope.article.title || $scope.article.title.length < 1) {
+				$scope.invalidTitle = true;
 			} else {
-				$scope.invalidSubject = false;
+				$scope.invalidTitle = false;
 			}
 
 			if (!$scope.article.email || $scope.article.email.length <= 5) {
@@ -45,7 +45,7 @@ app.controller('ShareController',
 			}
 
 
-			if (!$scope.invalidSubject && !$scope.invalidEmail && !$scope.invalidContent) {
+			if (!$scope.invalidTitle && !$scope.invalidEmail && !$scope.invalidContent) {
 				// Send article.
 			}
 		};
