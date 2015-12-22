@@ -16,7 +16,7 @@
 
 ### Who do I talk to? ###
 
-* Repo owners:
+Repo owners:
 
 Ivan Zdravkov - ivanzdravkovbg@gmail.com
 
