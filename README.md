@@ -18,5 +18,5 @@
 
 * Repo owners:
 Ivan Zdravkov - ivanzdravkovbg@gmail.com
-<br>
+
 Marin Takanov - mbtakanov@yahoo.com
