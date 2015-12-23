@@ -3,4 +3,5 @@ bin
 /Backend/WebServices/obj
 /Backend/WebServices/PrivateSettings.config
 /Backend/DataPopulation/DataPopulation.dbmdl
+/Backend/packages
 /Frontend/TODO_Tasks.txt

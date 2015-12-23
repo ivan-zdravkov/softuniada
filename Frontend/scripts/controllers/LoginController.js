@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('LoginController', 
-	['$scope', function ($scope) {
+	['$scope', 'userService', function ($scope, userService) {
 		$scope.invalidEmail = false;
 		$scope.invalidPassword = false;
 
@@ -31,12 +31,16 @@ app.controller('LoginController',
 			}
 
 			if (!$scope.invalidEmail && !$scope.invalidPassword) {
-				var loginObj = {
-					email: $scope.email,
+				var user = {
+					username: $scope.email,
 					passowrd: $scope.passowrd
 				};
 
-				// Login the user.
+				userService.loginUser(user)
+				.$promise
+				.then(function (response) {
+					console.log(response);
+				});
 			}
 		};
 	}]
