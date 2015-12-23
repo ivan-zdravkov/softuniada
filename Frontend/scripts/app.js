@@ -1,10 +1,10 @@
 'use strict';
 
-var app = angular.module('app', [ 'ngRoute', 'textAngular', 'angularUtils.directives.dirPagination']);
+var app = angular.module('app', ['ngRoute', 'textAngular', 'angularUtils.directives.dirPagination']);
 
 app.constant('baseServiceUrl',
-	// 'http://95.158.165.1'
-	'http://localhost:13447'
+	// 'http://95.158.165.1/'
+	'http://localhost:13447/'
 );
 
 app.config(['$routeProvider', function ($routeProvider) {

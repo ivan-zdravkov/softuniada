@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('RegisterController', 
-	['$scope', function ($scope) {
+	['$scope', 'userServices', function ($scope, userServices) {
 		$scope.reg = {};
 		$scope.invalidUsername = false;
 		$scope.invalidEmail = false;
