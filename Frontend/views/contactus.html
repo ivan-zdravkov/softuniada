@@ -12,9 +12,7 @@
 		    <div class="form-group">
 				<label class="col-sm-12" for="email">From:</label>
 				<div class="col-sm-12">
-					<input type="email" ng-model="message.email" ng-change="emailChange()" 
-					class="form-control" id="email" placeholder="Enter E-mail">
-					<p class="help-block" ng-if="invalidEmail">Please enter your E-mail</p>
+					<input type="email" ng-model="message.email" class="form-control" id="email" ng-disabled readonly="readonly">
 				</div>
 		    </div>
 		</div>
@@ -28,13 +26,8 @@
 				</div>
 		    </div>
 		</div>
-		<div class="col-xs-offset-6 col-xs-6 padding-right-0">
-			<div class="col-lg-8 col-md-12 col-padding-ignore min-height-90">
-				<div class="g-recaptcha" data-sitekey="6LebmhMTAAAAAFcVl_uO4WQ_F_ANouO_yx-r8C2Y"></div>
-			</div>
-			<div class="col-lg-4 col-md-12 col-padding-ignore text-align-right">
-		        <button type="submit" class="btn btn-default" ng-click="send()">Send</button>
-			</div>
+		<div class="col-xs-12 padding-right-0">
+	        <button type="submit" class="btn btn-default float-right" ng-click="send()">Send</button>
 		</div>
 	</form>
 </div>

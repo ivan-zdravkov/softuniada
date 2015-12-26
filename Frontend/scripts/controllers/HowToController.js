@@ -1,9 +1,11 @@
 'use strict';
 
 app.controller('HowToController', 
-	['$scope', '$location', function ($scope, $location) {
+	['$scope', '$location', 'authenticationService', 'articleService', function ($scope, $location, authenticationService, articleService) {
 		$scope.isDataLoading = false;
-		$scope.isAdmin = true;
+		$scope.isAdmin = authenticationService.isAdmin();
+		$scope.categories = [];
+
 
 		$scope.categories = [
 			{ id: 1, name: 'Sport', articles: [
@@ -106,7 +108,7 @@ app.controller('HowToController',
 		};
 
 		$scope.redirectToArticle = function (articleId) {
-			$location.path('/article/' + articleId);
+			$location.path('/article/read/' + articleId);
 		};
 
 		$scope.editArticle = function (articleId) {

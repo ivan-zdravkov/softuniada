@@ -44,18 +44,18 @@ body {
 	background-color: #333;
 }
 
-#main-header ul {
+#main-header > ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    height: 48px;
 }
 
 #main-header li {
     float: left;
 }
 
-#main-header li a {
+.main-header-li > li > a {
     display: inline-block;
     color: white;
     text-align: center;
@@ -299,4 +299,31 @@ body {
 
 .max-height-150 {
 	max-height: 150px;
+}
+
+.float-none {
+	float: none;
+}
+
+.float-none-li > li {
+	float: none !important;
+}
+
+#custom-admin-button {
+	background: inherit;
+    border: none;
+    padding: 14px 16px;
+    outline: none;
+}
+
+#custom-admin-button:hover {
+	background: black;
+}
+
+.min-height-1000 {
+	min-height: 1000px;
+}
+
+.break-word {
+    word-wrap: break-word;
 }
