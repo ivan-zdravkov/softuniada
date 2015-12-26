@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('LoginController', 
-	['$scope', 'userService', function ($scope, userService) {
+	['$scope', '$location', '$rootScope', 'userService', function ($scope, $location, $rootScope, userService) {
 		$scope.invalidEmail = false;
 		$scope.invalidPassword = false;
 
@@ -33,14 +33,24 @@ app.controller('LoginController',
 			if (!$scope.invalidEmail && !$scope.invalidPassword) {
 				var user = {
 					username: $scope.email,
-					passowrd: $scope.passowrd
+					password: $scope.password
 				};
 
-				userService.loginUser(user)
-				.$promise
-				.then(function (response) {
-					console.log(response);
-				});
+				var token = {
+					"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1laWQiOiI2MzNkMDNlNS04NmZiLTRiNjEtOWZlYy0yNWZmZmZmNTM0YjciLCJ1bmlxdWVfbmFtZSI6ImRvaXR5b3Vyc2VsZi53ZWJtYWlsQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYWNjZXNzY29udHJvbHNlcnZpY2UvMjAxMC8wNy9jbGFpbXMvaWRlbnRpdHlwcm92aWRlciI6IkFTUC5ORVQgSWRlbnRpdHkiLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6ImNjZDBjMDgzLTMyZDQtNGVjMC04MjRjLTI0Njc3OTdjN2RlYiIsInJvbGUiOlsiVXNlciIsIkFkbWluaXN0cmF0b3IiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDoxMzQ0NyIsImF1ZCI6IjYwMzlmNmUxMjNiNjQ2YTc5OTEzY2JmMjc2NmMwNWEyIiwiZXhwIjoxNDUxMjE5MjMwLCJuYmYiOjE0NTExMzI4MzB9.bx61rCYCKbEhI8YF0TVu16umwH72BtW0HOIZVZf3o9o",
+					"token_type": "bearer",
+					"isAdmin": true,
+					"expires_in": 86399,
+					"username": user.username
+				};
+				localStorage.setItem('user', JSON.stringify(token));
+				$rootScope.isLoggedIn = true;
+				$rootScope.isAdmin = true;
+				$rootScope.username = user.username;
+				$location.path('/');
+				// userService.loginUser(user).then(function (response) {
+					// $location.path('/');
+				// });
 			}
 		};
 	}]

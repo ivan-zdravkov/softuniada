@@ -20,20 +20,36 @@
 		<div id="main-content">
 			<div class="row row-margin-ignore header-background margin-bottom-50">
 				<div id="main-header">
-					<ul>
+					<ul class="main-header-li">
 						<li><a href="/#/">Home</a></li>
 						<li><a href="/#/howto">How to...</a></li>
-						<li><a href="/#/share">Share your experience</a></li>
-						<ul class="float-right">
-							<li><a href="/#/contactus">Contact us</a></li>
-							<li><a href="/#/register">Register</a></li>
-							<li><a href="/#/login">Log in</a></li>
+						<li ng-if="isLoggedIn"><a href="/#/share">Share your experience</a></li>
+						<li ng-if="isLoggedIn"><a href="/#/contactus">Contact us</a></li>
+						<ul class="float-right main-header-li">
+							<li ng-if="isAdmin">
+								<div class="dropdown">
+								    <button class="btn btn-primary dropdown-toggle" id="custom-admin-button" type="button" data-toggle="dropdown">
+								    	Admin panel
+								    	<span class="caret"></span>
+								    </button>
+								    <ul class="dropdown-menu float-none-li">
+								      <li><a href="/#/article/create">Create article</a></li>
+								      <li><a href="/#/users">User management</a></li>
+								    </ul>
+								  </div>
+							</li>
+							<li ng-if="!isLoggedIn"><a href="/#/register">Register</a></li>
+							<li ng-if="!isLoggedIn"><a href="/#/login">Log in</a></li>
+							<li ng-if="isLoggedIn"><a href="/#/" ng-click="logout()">Logout</a></li>
+							<li ng-if="isLoggedIn"><a href="/#/" ng-bind="username"></a></li>
 						</ul>
 					</ul>
 				</div>
 			</div>
-
-			<div id="view" ng-view=""></div>
+			
+			<div class="min-height-1000">
+				<div id="view" ng-view=""></div>
+			</div>
 		</div>
 
 		<div id="footer">
@@ -91,12 +107,16 @@
 	<script src="scripts/controllers/ShareController.js"></script>
 	<script src="scripts/controllers/ContactUsController.js"></script>
 	<script src="scripts/controllers/ArticleController.js"></script>
+	<script src="scripts/controllers/UserController.js"></script>
 
 	<script src="scripts/directives/loader.js"></script>
 	<script src="scripts/directives/fileread.js"></script>
 
 	<script src="scripts/services/authenticationService.js"></script>
 	<script src="scripts/services/userService.js"></script>
+	<script src="scripts/services/queryService.js"></script>
+	<script src="scripts/services/articleService.js"></script>
+	
 	
 	<script>
 		(function(d, s, id) {

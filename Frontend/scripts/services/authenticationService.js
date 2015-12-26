@@ -1,21 +1,25 @@
 'use strict';
 
-app.factory('authenticationService', function () {
+app.factory('authenticationService', ['$rootScope', function ($rootScope) {
 	var key = 'user';
 
-	function saveUser (data) {
-		localStorage.setItem(key, angular.toJson(data));
-	}
+	var saveUser = function (data) {
+		localStorage.setItem(key, JSON.stringify(data));
+	};
 
-	function getUser () {
-		return angular.fromJson(localStorage.getItem(key));
-	}
+	var getUser = function () {
+		var token = JSON.parse(localStorage.getItem(key));
+		return token;
+	};
 
-	function removeUser (data) {
+	var logout = function () {
 		localStorage.removeItem(key);
-	}
+		$rootScope.isLoggedIn = false;
+		$rootScope.isAdmin = false;
+		$rootScope.username = '';
+	};
 
-	function getHeaders () {
+	var getHeaders = function () {
 		var headers = {};
 		var userData = getUser();
 		if (userData) {
@@ -23,23 +27,38 @@ app.factory('authenticationService', function () {
 		}
 
 		return headers;
-	}
+	};
 
-	function isLoggedIn () {
+	var isLoggedIn = function () {
 		return !!getUser();
-	}
+	};
 
-	function isAdmin () {
-		var isAdmin = localStorage.getUser().isAdmin;
-		return isAdmin;
-	}
+	var isAdmin = function () {
+		var isAdmin = false;;
+		var user = getUser();
+
+		if (user) {
+			return !!user.isAdmin;
+		}
+
+		return false;
+	};
+
+	var getUsername = function () {
+		var token = JSON.parse(localStorage.getItem(key));
+		if (token) {
+			return token.username;
+		}
+		return '';
+	};
 
 	return {
 		saveUser: saveUser,
 		getUser: getUser,
-		removeUser: removeUser,
+		logout: logout,
 		getHeaders: getHeaders,
 		isLoggedIn: isLoggedIn,
-		isAdmin: isAdmin
-	}
-});
+		isAdmin: isAdmin,
+		getUsername: getUsername
+	};
+}]);

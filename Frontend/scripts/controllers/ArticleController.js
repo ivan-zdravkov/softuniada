@@ -3,8 +3,20 @@
 app.controller('ArticleController', 
 	['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
 		$('html,body').scrollTop(0);
-		$scope.articleId = $routeParams.articleId;
 		$scope.isEditMode = $routeParams.action === 'edit';
+		$scope.isCreateMode = $routeParams.action === 'create';
+		$scope.isReadMode = $routeParams.action === 'read';
+		$scope.articleId = $routeParams.articleId;
+		$scope.articleNotFound = false;
+
+		if ($scope.isCreateMode) {
+			$scope.article = {
+				id: 0,
+				title: '',
+				imageURL: '',
+				content: ''
+			};
+		}
 
 		$scope.articles = [];
 		$scope.isDataLoading = false;
@@ -76,11 +88,19 @@ app.controller('ArticleController',
 			.replace(/color: rgb\(.{0,13}\);|float: none;|background-color: rgb\(.{0,13}\);/gi, '')
 			.replace(/ style=""/gi, '');
 
+			if ($scope.isEditMode) {
 
+			} else if ($scope.isCreateMode) {
+
+			}
 		};
 
 		$scope.redirectToHowToPage = function () {
 			$location.path('/howto');
+		};
+
+		$scope.previewArticle = function () {
+			$scope.isPreview = !$scope.isPreview;
 		};
 
 

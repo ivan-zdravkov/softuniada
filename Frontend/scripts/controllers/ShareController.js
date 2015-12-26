@@ -1,11 +1,13 @@
 'use strict';
 
 app.controller('ShareController', 
-	['$scope', function ($scope) {
+	['$scope', '$rootScope', function ($scope, $rootScope) {
 		$scope.article = {};
+		$scope.article.email = $rootScope.username;
 		$scope.invalidTitle = false;
 		$scope.invalidEmail = false;
 		$scope.invalidContent = false;
+		$scope.isPreview = false;
 
 		$scope.titleChange = function () {
 			if ($scope.invalidTitle && $scope.article.title && $scope.article.title.length >= 1) {
@@ -13,16 +15,14 @@ app.controller('ShareController',
 			}
 		};
 
-		$scope.emailChange = function () {
-			if ($scope.invalidEmail && $scope.article.email && $scope.article.email.length > 0) {
-				$scope.invalidEmail = false;
-			}
-		};
-
 		$scope.contentChange = function () {
 			if ($scope.invalidContent && $scope.article.content && $scope.article.content.length >= 4) {
 				$scope.invalidContent = false;
 			}
+		};
+
+		$scope.previewArticle = function () {
+			$scope.isPreview = !$scope.isPreview;
 		};
 
 		$scope.send = function () {

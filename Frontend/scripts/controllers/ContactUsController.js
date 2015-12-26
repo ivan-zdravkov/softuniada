@@ -1,8 +1,9 @@
 'use strict';
 
 app.controller('ContactUsController', 
-	['$scope', function ($scope) {
+	['$scope', '$rootScope', function ($scope, $rootScope) {
 		$scope.message = {};
+		$scope.message.email = $rootScope.username;
 		$scope.invalidSubject = false;
 		$scope.invalidEmail = false;
 		$scope.invalidContent = false;
@@ -13,12 +14,6 @@ app.controller('ContactUsController',
 			}
 		};
 
-		$scope.emailChange = function () {
-			if ($scope.invalidEmail && $scope.message.email && $scope.message.email.length > 0) {
-				$scope.invalidEmail = false;
-			}
-		};
-
 		$scope.contentChange = function () {
 			if ($scope.invalidContent && $scope.message.content && $scope.message.content.length >= 4) {
 				$scope.invalidContent = false;
@@ -26,7 +21,7 @@ app.controller('ContactUsController',
 		};
 
 		$scope.send = function () {
-			if (!$scope.message.subject || $scope.message.subject.length <= 1) {
+			if (!$scope.message.subject || $scope.message.subject.length < 1) {
 				$scope.invalidSubject = true;
 			} else {
 				$scope.invalidSubject = false;

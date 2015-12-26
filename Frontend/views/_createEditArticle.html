@@ -21,23 +21,23 @@
 
 		<div class="col-xs-3 margin-bottom-10">
 			<label for="image" class="hover">
-				<img src="" ng-src="{{article.imageURL}}" alt="Article image" class="full-width">
+				<img ng-if="article.imageURL" src="" ng-src="{{article.imageURL}}" alt="" class="full-width">
 			</label>
 		</div>
 
 		<div class="col-xs-12 margin-bottom-20">
 			<div text-angular="" ng-model="article.content" ng-change="contentChange()" style="min-height:400px;"></div>
-				<!-- taOptions.toolbar = [
-			      ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
-			      ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
-			      ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'],
-			      ['html', 'insertImage','insertLink', 'insertVideo', 'wordcount', 'charcount']
-			  ];  -->
 			  <p class="help-block" ng-if="invalidContent">Please write an article content</p>
 		</div>
 
-		<div class="col-xs-offset-10 col-xs-2">
+		<div ng-if="isPreview" class="col-xs-12 margin-bottom-20 break-word">
+			<div ta-bind ng-model="article.content">
+			</div>
+		</div>
+
+		<div class="col-xs-12">
 			<div class="text-align-right">
+				<button type="submit" class="btn btn-default" ng-click="previewArticle()">Preview</button>
 		        <button type="submit" class="btn btn-default" ng-click="save()">Save</button>
 				<button type="submit" class="btn btn-default" ng-click="redirectToHowToPage()">Cancel</button>
 		    </div>
