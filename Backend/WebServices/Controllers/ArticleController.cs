@@ -1,19 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security.DataHandler.Encoder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using WebServices.Controllers.Models;
-using WebServices.Infrastructure;
+﻿using System.Web.Http;
 using WebServices.Models;
 
 namespace WebServices.Controllers
 {
-    [RoutePrefix("api/article")]
+    [RoutePrefix("api/Article")]
     //[Authorize]
     public class ArticleController : BaseApiController
     {
@@ -64,14 +54,6 @@ namespace WebServices.Controllers
         [HttpGet]
         [Route("GetAllStatuses")]
         public IHttpActionResult GetAllStatuses()
-        {
-            //Return BasicModel
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("GetAllCategories")]
-        public IHttpActionResult GetAllCategories()
         {
             //Return BasicModel
             return Ok();

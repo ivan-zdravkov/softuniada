@@ -5,18 +5,14 @@ app.factory('userService', ['$http', '$q', 'authSettings', 'authenticationServic
 
 		var serviceBase = authSettings.baseUri;
 	
-		var registerUser = function (user) {
+		var _registerUser = function (user) {
 			var resourceURL = serviceBase + '/api/user/register';
 	        var promise = queryService.post(resourceURL, user, 'UTC');
-
-	        promise.then(function (data) {
-				authenticationService.saveUser(data);
-	        });
 
 	        return promise;
 		};
 
-		var loginUser = function (user) {
+		var _loginUser = function (user) {
 			user.grant_type = 'password';
 			var resourceURL = serviceBase + '/oauth/token';
 	        var promise = queryService.post(resourceURL, user, 'UTC');
@@ -33,14 +29,14 @@ app.factory('userService', ['$http', '$q', 'authSettings', 'authenticationServic
 	        return promise;
 		};
 
-		var logoutUser = function () {
+		var _logoutUser = function () {
 			authenticationService.removeUser();
 		};
 
 		return {
-			registerUser: registerUser,
-			loginUser: loginUser,
-			logoutUser: logoutUser
+			registerUser: _registerUser,
+			loginUser: _loginUser,
+			logoutUser: _logoutUser
 		};
 	}
 ]);

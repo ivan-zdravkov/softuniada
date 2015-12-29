@@ -1,6 +1,6 @@
 ﻿namespace WebServices.Models
 {
-    public class BaseModel
+    public class BasicModel
     {
         public int Id { get; set; }
 

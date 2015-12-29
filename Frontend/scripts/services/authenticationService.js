@@ -3,39 +3,39 @@
 app.factory('authenticationService', ['$rootScope', function ($rootScope) {
 	var key = 'user';
 
-	var saveUser = function (data) {
+	var _saveUser = function (data) {
 		localStorage.setItem(key, JSON.stringify(data));
 	};
 
-	var getUser = function () {
+	var _getUser = function () {
 		var token = JSON.parse(localStorage.getItem(key));
 		return token;
 	};
 
-	var logout = function () {
+	var _logout = function () {
 		localStorage.removeItem(key);
 		$rootScope.isLoggedIn = false;
 		$rootScope.isAdmin = false;
 		$rootScope.username = '';
 	};
 
-	var getHeaders = function () {
+	var _getHeaders = function () {
 		var headers = {};
-		var userData = getUser();
+		var userData = _getUser();
 		if (userData) {
-			headers.Authorization = 'Bearer ' + getUser().access_token;
+			headers.Authorization = 'Bearer ' + userData.access_token;
 		}
 
 		return headers;
 	};
 
-	var isLoggedIn = function () {
-		return !!getUser();
+	var _isLoggedIn = function () {
+		return !!_getUser();
 	};
 
-	var isAdmin = function () {
+	var _isAdmin = function () {
 		var isAdmin = false;;
-		var user = getUser();
+		var user = _getUser();
 
 		if (user) {
 			return !!user.isAdmin;
@@ -44,7 +44,7 @@ app.factory('authenticationService', ['$rootScope', function ($rootScope) {
 		return false;
 	};
 
-	var getUsername = function () {
+	var _getUsername = function () {
 		var token = JSON.parse(localStorage.getItem(key));
 		if (token) {
 			return token.username;
@@ -53,12 +53,12 @@ app.factory('authenticationService', ['$rootScope', function ($rootScope) {
 	};
 
 	return {
-		saveUser: saveUser,
-		getUser: getUser,
-		logout: logout,
-		getHeaders: getHeaders,
-		isLoggedIn: isLoggedIn,
-		isAdmin: isAdmin,
-		getUsername: getUsername
+		saveUser: _saveUser,
+		getUser: _getUser,
+		logout: _logout,
+		getHeaders: _getHeaders,
+		isLoggedIn: _isLoggedIn,
+		isAdmin: _isAdmin,
+		getUsername: _getUsername
 	};
 }]);

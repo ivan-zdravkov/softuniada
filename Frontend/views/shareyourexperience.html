@@ -1,4 +1,5 @@
 <div class="row row-margin-ignore">
+	<loader ng-if="isDataLoading"></loader>
 	<form class="form-horizontal" role="form">
 		<div class="col-xs-12 margin-bottom-10">
 			<div class="col-xs-8 padding-left-0">
@@ -12,7 +13,7 @@
 			<div class="col-xs-4 col-padding-ignore">
 				<label for="email">From:</label>
 				<div>
-					<input type="email" ng-model="article.email" class="form-control" id="email" ng-disabled readonly="readonly">
+					<input type="text" value="{{article.from}}" class="form-control" id="email" ng-disabled readonly="readonly">
 				</div>
 			</div>
 		</div>

@@ -33,6 +33,7 @@
 				        	<a href="" ng-click="selectStatus(status)">{{status.name}}</a>
 			        	</li>
 				    </ul>
+				    <p class="help-block" ng-if="invalidStatus">Please select a status</p>
 				</div>
 			</div>
 			<div class="col-xs-4">
@@ -49,6 +50,7 @@
 				        	<a href="" ng-click="selectCategory(category)">{{category.name}}</a>
 			        	</li>
 				    </ul>
+				    <p class="help-block" ng-if="invalidCategory">Please select a category</p>
 				</div>
 			</div>
 			
