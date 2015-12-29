@@ -37,8 +37,42 @@ app.factory('queryService', ['$http', '$q', function ($http, $q) {
         return deferred.promise;
     };
 
+    var _executeDeleteQuery = function (resourceURL, timeZoneID) {
+        var deferred = $q.defer();
+
+        $http.delete(resourceURL, {
+            headers: {
+                'TimeZoneID': timeZoneID
+            }
+        }).success(function (response) {
+            deferred.resolve(response);
+        }).error(function (err, status) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    };
+
+    var _executePutQuery = function (resourceURL, data, timeZoneID) {
+        var deferred = $q.defer();
+
+        $http.put(resourceURL, data, {
+            headers: {
+                'TimeZoneID': timeZoneID
+            }
+        }).success(function (response) {
+            deferred.resolve(response);
+        }).error(function (err, status) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    };
+
 	return {
         get: _executeGetQuery,
-        post: _executePostQuery
+        post: _executePostQuery,
+        put: _executePutQuery,
+        delete: _executeDeleteQuery
 	};
 }]);

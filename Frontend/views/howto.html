@@ -1,5 +1,14 @@
 <div class="row row-margin-ignore">
 	<loader ng-if="isDataLoading"></loader>
+	<div ng-if="isLoggedIn && isAdmin" class="full-width text-align-center">
+		<ul class="breadcrumb background-inherit margin-0">
+			<li ng-repeat="status in statuses | orderBy:'id'">
+				<a class="hover color-light-gray" ng-click="showStatusArticles(status.id)">
+					{{status.name}}
+				</a>
+			</li>
+		</ul>
+	</div>
 	<div class="full-width text-align-center">
 		<ul class="breadcrumb background-inherit">
 			<li>
@@ -7,7 +16,7 @@
 					All
 				</a>
 			</li>
-			<li ng-repeat="category in categories | orderBy:['-articlesLength', 'name']">
+			<li ng-repeat="category in categories | orderBy:'name'">
 				<a class="hover color-light-gray" ng-click="showCategoryArticles(category.id)">
 					{{category.name}}
 				</a>
@@ -35,7 +44,7 @@
 
 		<div class="row row-margin-ignore">
 			<div class="col-xs-2 col-padding-ignore">
-				<img src="" ng-src="{{article.imageURL}}" alt="Article image" ng-click="redirectToArticle(article.id)"
+				<img src="" ng-src="{{article.image}}" alt="Article image" ng-click="redirectToArticle(article.id)"
 				class="col-xs-12 col-padding-ignore cursor-pointer max-height-150">
 			</div>
 			<div class="col-xs-8">

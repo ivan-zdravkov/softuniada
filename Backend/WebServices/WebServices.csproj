@@ -180,7 +180,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PrivateSettings.config" />
+    <Content Include="PrivateSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -193,10 +195,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Filters\GlobalExceptionFilterAttribute.cs" />
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
+    <Compile Include="Models\ArticleInputModel.cs" />
+    <Compile Include="Models\ArticleOutputModel.cs" />
+    <Compile Include="Models\ArticleStatusModel.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\RegisterUserModel.cs" />
     <Compile Include="Models\RoleModel.cs" />

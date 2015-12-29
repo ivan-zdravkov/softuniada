@@ -5,15 +5,6 @@ app.controller('AppController',
 		$rootScope.isLoggedIn = authenticationService.isLoggedIn();
 		$rootScope.isAdmin = authenticationService.isAdmin();
 		$rootScope.username = authenticationService.getUsername();
-		// $scope.resetCredentials = function () {
-		// 	$scope.isLoggedIn = false;
-		// 	$scope.isAdmin = false;
-		// };
-
-		// $scope.resetCredentials();
-
-		// $scope.isLoggedIn = authenticationService.isLoggedIn();
-		// $scope.isAdmin = authenticationService.isAdmin();
 
 		$scope.logout = function () {
 			authenticationService.logout();
