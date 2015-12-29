@@ -44,7 +44,6 @@ app.controller('ShareController',
 				$scope.invalidContent = false;
 			}
 
-
 			if (!$scope.invalidTitle && !$scope.invalidEmail && !$scope.invalidContent) {
 				// Send article.
 			}

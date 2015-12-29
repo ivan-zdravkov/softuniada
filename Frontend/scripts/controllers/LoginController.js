@@ -12,7 +12,7 @@ app.controller('LoginController',
 		};
 
 		$scope.passChange = function() {
-			if ($scope.invalidPassword && $scope.password && $scope.password.length > 0) {
+			if ($scope.invalidPassword && $scope.password && $scope.password.length >= 6) {
 				$scope.invalidPassword = false;
 			}
 		};
@@ -24,7 +24,7 @@ app.controller('LoginController',
 				$scope.invalidEmail = false;
 			}
 
-			if (!$scope.password) {
+			if (!$scope.password || $scope.password.length < 6) {
 				$scope.invalidPassword = true;
 			} else {
 				$scope.invalidPassword = false;
