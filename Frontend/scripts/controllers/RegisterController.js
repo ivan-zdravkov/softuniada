@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('RegisterController', 
-	['$scope', 'userService', function ($scope, userService) {
+	['$scope', '$location', 'userService', 'notyService', function ($scope, $location, userService, notyService) {
 		$scope.reg = {};
 		$scope.invalidUsername = false;
 		$scope.invalidEmail = false;
@@ -72,7 +72,8 @@ app.controller('RegisterController',
 
 			if (!$scope.invalidUsername && !$scope.invalidEmail && !$scope.invalidPassword && 
 				!$scope.invalidConfPassword && !$scope.invalidPasswords) {
-				// Register the user.
+				notyService.successMessage('Registration successful. Please check your e-mail.', 5);
+				$location.path('/');
 			}
 		};
 	}]

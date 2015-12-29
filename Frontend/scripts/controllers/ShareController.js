@@ -1,13 +1,13 @@
 'use strict';
 
 app.controller('ShareController', 
-	['$scope', '$rootScope', function ($scope, $rootScope) {
+	['$scope', '$rootScope', '$location', 'notyService', 'mailService', function ($scope, $rootScope, $location, notyService, mailService) {
 		$scope.article = {};
-		$scope.article.email = $rootScope.username;
+		$scope.article.from = $rootScope.username;
 		$scope.invalidTitle = false;
-		$scope.invalidEmail = false;
 		$scope.invalidContent = false;
 		$scope.isPreview = false;
+		$scope.isDataLoading = false;
 
 		$scope.titleChange = function () {
 			if ($scope.invalidTitle && $scope.article.title && $scope.article.title.length >= 1) {
@@ -32,20 +32,19 @@ app.controller('ShareController',
 				$scope.invalidTitle = false;
 			}
 
-			if (!$scope.article.email || $scope.article.email.length <= 5) {
-				$scope.invalidEmail = true;
-			} else {
-				$scope.invalidEmail = false;
-			}
-
 			if (!$scope.article.content || $scope.article.content.length < 4) {
 				$scope.invalidContent = true;
 			} else {
 				$scope.invalidContent = false;
 			}
 
-			if (!$scope.invalidTitle && !$scope.invalidEmail && !$scope.invalidContent) {
-				// Send article.
+			if (!$scope.invalidTitle && !$scope.invalidContent) {
+				$scope.isDataLoading = true;
+				mailService.sendMail($scope.message).then(function () {
+					notyService.successMessage('Your message was sent successfully.');
+					$scope.isDataLoading = false;
+					$location.path('/');
+				});
 			}
 		};
 	}]

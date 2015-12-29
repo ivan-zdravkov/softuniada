@@ -49,6 +49,11 @@ app.config(['$routeProvider', function ($routeProvider) {
 			controller: 'UserController',
 			isLogin: true
 		})
+		.when('/category', {
+			templateUrl: 'views/category.html',
+			controller: 'CategoryController',
+			isLogin: true
+		})
 		.when('/404', {
 			templateUrl: 'views/notFound.html',
 		})

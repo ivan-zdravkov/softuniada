@@ -1,12 +1,12 @@
 'use strict';
 
 app.controller('ContactUsController', 
-	['$scope', '$rootScope', function ($scope, $rootScope) {
+	['$scope', '$rootScope', '$location', 'notyService', 'mailService', function ($scope, $rootScope, $location, notyService, mailService) {
 		$scope.message = {};
-		$scope.message.email = $rootScope.username;
+		$scope.message.from = $rootScope.username;
 		$scope.invalidSubject = false;
-		$scope.invalidEmail = false;
 		$scope.invalidContent = false;
+		$scope.isDataLoading = false;
 
 		$scope.subjectChange = function () {
 			if ($scope.invalidSubject && $scope.message.subject && $scope.message.subject.length >= 1) {
@@ -15,7 +15,7 @@ app.controller('ContactUsController',
 		};
 
 		$scope.contentChange = function () {
-			if ($scope.invalidContent && $scope.message.content && $scope.message.content.length >= 4) {
+			if ($scope.invalidContent && $scope.message.content && $scope.message.content.length >= 10) {
 				$scope.invalidContent = false;
 			}
 		};
@@ -27,21 +27,19 @@ app.controller('ContactUsController',
 				$scope.invalidSubject = false;
 			}
 
-			if (!$scope.message.email || $scope.message.email.length <= 5) {
-				$scope.invalidEmail = true;
-			} else {
-				$scope.invalidEmail = false;
-			}
-
-			if (!$scope.message.content || $scope.message.content.length < 4) {
+			if (!$scope.message.content || $scope.message.content.length < 10) {
 				$scope.invalidContent = true;
 			} else {
 				$scope.invalidContent = false;
 			}
 
-
-			if (!$scope.invalidSubject && !$scope.invalidEmail && !$scope.invalidContent) {
-				// Send message.
+			if (!$scope.invalidSubject && !$scope.invalidContent) {
+				$scope.isDataLoading = true;
+				mailService.sendMail($scope.message).then(function () {
+					notyService.successMessage('Your message was sent successfully.');
+					$scope.isDataLoading = false;
+					$location.path('/');
+				});
 			}
 		};
 	}]
