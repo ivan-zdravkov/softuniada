@@ -359,3 +359,11 @@ body {
 .color-black {
 	color: black;
 }
+
+.visibility-hidden {
+	visibility: hidden;
+}
+
+.visible {
+	visibility: visible !important;
+}

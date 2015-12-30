@@ -24,7 +24,7 @@ app.factory('queryService', ['$http', '$q', function ($http, $q) {
         $http.post(resourceURL, data, {
             headers: {
             	'Accept': '*',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json;charset=utf-8',
                 'Access-Control-Allow-Origin': '*',
                 'TimeZoneID': timeZoneID
             }

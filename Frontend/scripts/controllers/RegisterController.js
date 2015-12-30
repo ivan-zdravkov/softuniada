@@ -3,17 +3,10 @@
 app.controller('RegisterController', 
 	['$scope', '$location', 'userService', 'notyService', function ($scope, $location, userService, notyService) {
 		$scope.reg = {};
-		$scope.invalidUsername = false;
 		$scope.invalidEmail = false;
 		$scope.invalidPassword = false;
 		$scope.invalidConfPassword = false;
 		$scope.invalidPasswords = false;
-
-		$scope.usernameChange = function () {
-			if ($scope.invalidUsername && $scope.reg.username && $scope.reg.username.length >= 4) {
-				$scope.invalidUsername = false;
-			}
-		};
 
 		$scope.emailChange = function () {
 			if ($scope.invalidEmail && $scope.reg.email && $scope.reg.email.length > 0) {
@@ -40,12 +33,6 @@ app.controller('RegisterController',
 		};
 
 		$scope.register = function () {
-			if (!$scope.reg.username || $scope.reg.username.length <= 4 || $scope.reg.username.indexOf(' ') !== -1) {
-				$scope.invalidUsername = true;
-			} else {
-				$scope.invalidUsername = false;
-			}
-
 			if (!$scope.reg.email || $scope.reg.email.length <= 5) {
 				$scope.invalidEmail = true;
 			} else {
@@ -70,7 +57,7 @@ app.controller('RegisterController',
 				$scope.invalidPasswords = false;
 			}
 
-			if (!$scope.invalidUsername && !$scope.invalidEmail && !$scope.invalidPassword && 
+			if (!$scope.invalidEmail && !$scope.invalidPassword && 
 				!$scope.invalidConfPassword && !$scope.invalidPasswords) {
 				notyService.successMessage('Registration successful. Please check your e-mail.', 5);
 				$location.path('/');
