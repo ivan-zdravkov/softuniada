@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Models;
+using DAL.EntityFramework;
 
 namespace DAL
 {
@@ -78,12 +79,31 @@ namespace DAL
         #region Statuses
         public void ChangeArticleStatus(ArticleStatusModel model)
         {
-            throw new NotImplementedException();
+            Article article = this.DB.Articles.SingleOrDefault(a => a.Id == model.ArticleId);
+
+            if (article != null)
+            {
+                article.StatusID = model.StatusId;
+
+                this.DB.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentException("Article not found.");
+            }
         }
 
         public IEnumerable<BasicModel> GetAllStatuses()
         {
-            throw new NotImplementedException();
+            return this.DB.Status
+                .AsNoTracking()
+                .OrderBy(s => s.Name)
+                .Select(s => new BasicModel()
+                {
+                    Id = s.Id,
+                    Name = s.Name
+                })
+                .ToList();
         }
         #endregion
 
