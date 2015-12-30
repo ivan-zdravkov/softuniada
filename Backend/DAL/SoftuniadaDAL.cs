@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Models;
 using DAL.EntityFramework;
+using DAL.Enums;
 
 namespace DAL
 {
@@ -40,41 +41,238 @@ namespace DAL
 
         public ArticleOutputModel GetArticleById(int articleId)
         {
-            throw new NotImplementedException();
+            Article article = this.DB.Articles
+                .AsNoTracking()
+                .Include(a => a.ArticleTags)
+                .Include(a => a.ArticleTags.Select(at => at.Tag))
+                .SingleOrDefault(a => a.Id == articleId);
+
+            if (article != null)
+            {
+                return new ArticleOutputModel()
+                {
+                    Id = article.Id,
+                    Title = article.Name,
+                    Content = article.Text,
+                    StatusId = article.StatusID,
+                    CategoryId = article.CategoryID,
+                    //Image = article.HeaderPicture,
+                    Tags = article.ArticleTags
+                        .OrderBy(at => at.Tag.Name)
+                        .Select(at => new BasicModel()
+                        {
+                            Id = at.Tag.Id,
+                            Name = at.Tag.Name
+                        })
+                };
+            }
+            else
+            {
+                throw new ArgumentException("Article not found.");
+            }
         }
       
         public IEnumerable<ArticleOutputModel> GetAllArticles()
         {
-            throw new NotImplementedException();
+            return this.DB.Articles
+                .AsNoTracking()
+                .Include(a => a.ArticleTags)
+                .Include(a => a.ArticleTags.Select(at => at.Tag))
+                .OrderBy(a => a.Name)
+                .Select(article => new ArticleOutputModel()
+                {
+                    Id = article.Id,
+                    Title = article.Name,
+                    Content = article.Text,
+                    StatusId = article.StatusID,
+                    CategoryId = article.CategoryID,
+                    //Image = article.HeaderPicture,
+                    Tags = article.ArticleTags
+                        .OrderBy(at => at.Tag.Name)
+                        .Select(at => new BasicModel()
+                        {
+                            Id = at.Tag.Id,
+                            Name = at.Tag.Name
+                        })
+                }).ToList();
         }
 
-        public ArticleOutputModel CreateArticle(ArticleInputModel article)
+        public IEnumerable<ArticleOutputModel> GetAllArticlesInCategory(int categoryId)
         {
-            // Always create the article in the Pending status. 
-            // Status will be changed at another place.
-            // No need for ID in the model. The ID will be generated from the Entity Framework.
-            // Return the newly created Article with tags and all!
-            // The list of tags will need to be compared with all existing Tags. 
-            // If a tag exists, it's Id should be writen in the ArticleTag Table
-            // If the tag does not exist, it should be created first and the newly created Tag Id added to the ArticleTag Table.
-            // Delete these comments when implemented.
-            throw new NotImplementedException();
+            return this.DB.Articles
+               .AsNoTracking()
+               .Include(a => a.ArticleTags)
+               .Include(a => a.ArticleTags.Select(at => at.Tag))
+               .Where(a => a.CategoryID == categoryId)
+               .OrderBy(a => a.Name)
+               .Select(article => new ArticleOutputModel()
+               {
+                   Id = article.Id,
+                   Title = article.Name,
+                   Content = article.Text,
+                   StatusId = article.StatusID,
+                   CategoryId = article.CategoryID,
+                    //Image = article.HeaderPicture,
+                    Tags = article.ArticleTags
+                       .OrderBy(at => at.Tag.Name)
+                       .Select(at => new BasicModel()
+                       {
+                           Id = at.Tag.Id,
+                           Name = at.Tag.Name
+                       })
+               }).ToList();
         }
 
-        public ArticleOutputModel UpdateArticle(int articleId, ArticleInputModel article)
+        public IEnumerable<ArticleOutputModel> GetAllArticlesInTag(int tagId)
         {
-            // Should not be able to change article status here.
-            // Return the updated Article with tags and all!
-            // The list of tags will need to be compared with all existing Tags. 
-            // If a tag exists, it's Id should be writen in the ArticleTag Table
-            // If the tag does not exist, it should be created first and the newly created Tag Id added to the ArticleTag Table.
-            // Delete these comments when implemented.
-            throw new NotImplementedException();
+            return this.DB.Articles
+               .AsNoTracking()
+               .Include(a => a.ArticleTags)
+               .Include(a => a.ArticleTags.Select(at => at.Tag))
+               .Where(a => a.ArticleTags.Any(at => at.TagID == tagId))
+               .OrderBy(a => a.Name)
+               .Select(article => new ArticleOutputModel()
+               {
+                   Id = article.Id,
+                   Title = article.Name,
+                   Content = article.Text,
+                   StatusId = article.StatusID,
+                   CategoryId = article.CategoryID,
+                   //Image = article.HeaderPicture,
+                   Tags = article.ArticleTags
+                       .OrderBy(at => at.Tag.Name)
+                       .Select(at => new BasicModel()
+                       {
+                           Id = at.Tag.Id,
+                           Name = at.Tag.Name
+                       })
+               }).ToList();
+        }
+
+        public ArticleOutputModel CreateArticle(ArticleInputModel articleModel)
+        {
+            Article article = this.DB.Articles.Create();
+
+            article.Name = articleModel.Title;
+            article.Text = articleModel.Content;
+            article.CategoryID = articleModel.CategoryId;
+            article.StatusID = (int)StatusesEnum.Pending;
+            //article.HeaderPicture = articleModel.Image;
+
+            IEnumerable<BasicModel> existingTags = this.DB.Tags
+                .AsNoTracking()
+                .Where(t => articleModel.Tags.Contains(t.Name))
+                .Select(t => new BasicModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                })
+                .ToList();
+
+            IEnumerable<string> notExistingTags = articleModel.Tags
+                .Where(t => !existingTags.Select(et => et.Name).Contains(t));
+
+            foreach(string nonExistingTag in notExistingTags)
+            {
+                Tag tagToCreate = this.DB.Tags.Create();
+
+                tagToCreate.Name = nonExistingTag;
+
+                article.ArticleTags.Add(new ArticleTag()
+                {
+                    ArticleID = article.Id,
+                    TagID = tagToCreate.Id
+                });
+            }
+                
+            foreach(BasicModel existingTag in existingTags)
+            {
+                article.ArticleTags.Add(new ArticleTag()
+                {
+                    ArticleID = article.Id,
+                    TagID = existingTag.Id
+                });
+            }
+
+            this.DB.Articles.Add(article);
+            this.DB.SaveChanges();
+
+            return this.GetArticleById(article.Id);
+        }
+
+        public ArticleOutputModel UpdateArticle(int articleId, ArticleInputModel articleModel)
+        {
+            Article article = this.DB.Articles.SingleOrDefault(a => a.Id == articleId);
+
+            if (article != null)
+            {
+                article.Name = articleModel.Title;
+                article.Text = articleModel.Content;
+                article.CategoryID = articleModel.CategoryId;
+                //article.HeaderPicture = articleModel.Image;
+
+                this.DB.ArticleTags.RemoveRange(article.ArticleTags);
+
+                IEnumerable<BasicModel> existingTags = this.DB.Tags
+                    .AsNoTracking()
+                    .Where(t => articleModel.Tags.Contains(t.Name))
+                    .Select(t => new BasicModel()
+                    {
+                        Id = t.Id,
+                        Name = t.Name
+                    })
+                    .ToList();
+
+                IEnumerable<string> notExistingTags = articleModel.Tags
+                    .Where(t => !existingTags.Select(et => et.Name).Contains(t));
+
+                foreach (string nonExistingTag in notExistingTags)
+                {
+                    Tag tagToCreate = this.DB.Tags.Create();
+
+                    tagToCreate.Name = nonExistingTag;
+
+                    article.ArticleTags.Add(new ArticleTag()
+                    {
+                        ArticleID = article.Id,
+                        TagID = tagToCreate.Id
+                    });
+                }
+
+                foreach (BasicModel existingTag in existingTags)
+                {
+                    article.ArticleTags.Add(new ArticleTag()
+                    {
+                        ArticleID = article.Id,
+                        TagID = existingTag.Id
+                    });
+                }
+
+                this.DB.SaveChanges();
+
+                return this.GetArticleById(article.Id);
+            }
+            else
+            {
+                throw new ArgumentException("Article not found.");
+            }
         }
 
         public void DeleteArticle(int articleId)
         {
-            throw new NotImplementedException();
+            Article article = this.DB.Articles.SingleOrDefault(a => a.Id == articleId);
+
+            if (article != null)
+            {
+                this.DB.ArticleTags.RemoveRange(article.ArticleTags);
+                this.DB.Articles.Remove(article);
+
+                this.DB.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentException("Article not found.");
+            }
         }
         #endregion
 
@@ -181,6 +379,7 @@ namespace DAL
         {
             return this.DB.Tags
                 .AsNoTracking()
+                .OrderBy(t => t.Name)
                 .Select(t => new BasicModel()
                 {
                     Id = t.Id,
@@ -191,12 +390,10 @@ namespace DAL
 
         public IEnumerable<BasicModel> GetAllTagsLike(string tagName)
         {
-            tagName = tagName.ToLower();
-
             IEnumerable<BasicModel> allTags = this.GetAllTags();
 
             return allTags
-                .Where(t => t.Name.ToLower().Contains(tagName))
+                .Where(t => t.Name.ToLower().Contains(tagName.ToLower()))
                 .ToList();
         }
         #endregion

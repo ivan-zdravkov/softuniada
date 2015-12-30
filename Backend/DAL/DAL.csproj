@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\StatusesEnum.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="Models\ArticleInputModel.cs" />
     <Compile Include="Models\ArticleOutputModel.cs" />

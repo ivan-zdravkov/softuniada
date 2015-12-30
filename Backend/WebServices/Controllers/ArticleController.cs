@@ -20,6 +20,26 @@ namespace WebServices.Controllers
         }
 
         [HttpGet]
+        [Route("getAllInCategory/{categoryId}")]
+        [AllowAnonymous]
+        public IHttpActionResult GetAllArticlesInCategory(int categoryId)
+        {
+            IEnumerable<ArticleOutputModel> allArticlesInCategory = this.SoftuniadaDAL.GetAllArticlesInCategory(categoryId);
+
+            return Ok(allArticlesInCategory);
+        }
+
+        [HttpGet]
+        [Route("getAllInTag/{tagId}")]
+        [AllowAnonymous]
+        public IHttpActionResult GetAllArticlesInTag(int tagId)
+        {
+            IEnumerable<ArticleOutputModel> allArticlesInTag = this.SoftuniadaDAL.GetAllArticlesInTag(tagId);
+
+            return Ok(allArticlesInTag);
+        }
+
+        [HttpGet]
         [Route("getById/{articleId}")]
         [AllowAnonymous]
         public IHttpActionResult GetArticleById(int articleId)
