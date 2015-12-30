@@ -1,5 +1,7 @@
 ﻿using DAL.Extensions;
 using System;
+using System.Data;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -110,29 +112,92 @@ namespace DAL
         #region Categories
         public IEnumerable<BasicModel> GetAllCategories()
         {
-            throw new NotImplementedException();
+            return this.DB.Categories
+                .AsNoTracking()
+                .OrderBy(c => c.Name)
+                .Select(c => new BasicModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                })
+                .ToList();
         }
 
         public int CreateCategory(string categoryName)
         {
-            throw new NotImplementedException();
+            Category category = this.DB.Categories.Create();
+            category.Name = categoryName;
+
+            this.DB.Categories.Add(category);
+            this.DB.SaveChanges();
+
+            return category.Id;
         }
 
-        public void UpdateCategory(BasicModel category)
+        public void UpdateCategory(BasicModel categoryModel)
         {
-            throw new NotImplementedException();
+            Category category = this.DB.Categories.SingleOrDefault(c => c.Id == categoryModel.Id);
+
+            if (category != null)
+            {
+                category.Name = categoryModel.Name;
+
+                this.DB.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentException("Category not found.");
+            }
         }
 
         public void DeleteCategory(int categoryId)
         {
-            throw new NotImplementedException();
+            Category category = this.DB.Categories
+                .Include(c => c.Articles)
+                .SingleOrDefault(c => c.Id == categoryId);
+
+            if (category != null)
+            {
+                if (!category.Articles.Any())
+                {
+                    this.DB.Categories.Remove(category);
+
+                    this.DB.SaveChanges();
+                }
+                else
+                {
+                    throw new DataException("You cannot delete a Category when there are Articles in that Category.");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Category not found.");
+            }
         }
         #endregion
 
         #region Tags
         public IEnumerable<BasicModel> GetAllTags()
         {
-            throw new NotImplementedException();
+            return this.DB.Tags
+                .AsNoTracking()
+                .Select(t => new BasicModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                })
+                .ToList();
+        }
+
+        public IEnumerable<BasicModel> GetAllTagsLike(string tagName)
+        {
+            tagName = tagName.ToLower();
+
+            IEnumerable<BasicModel> allTags = this.GetAllTags();
+
+            return allTags
+                .Where(t => t.Name.ToLower().Contains(tagName))
+                .ToList();
         }
         #endregion
     }

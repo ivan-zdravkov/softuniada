@@ -20,5 +20,15 @@ namespace WebServices.Controllers
 
             return Ok(allTags);
         }
+
+        [HttpGet]
+        [Route("getAllLike/{tagName}")]
+        [AllowAnonymous]
+        public IHttpActionResult GetAllTagsLike(string tagName)
+        {
+            IEnumerable<BasicModel> allTagsLike = this.SoftuniadaDAL.GetAllTagsLike(tagName);
+
+            return Ok(allTagsLike);
+        } 
     }
 }
