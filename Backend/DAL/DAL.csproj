@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalConstants.cs" />
+    <Compile Include="SoftuniadaDAL.cs" />
     <Compile Include="EntityFramework\Article.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -99,6 +101,7 @@
     <Compile Include="EntityFramework\Tag.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\ExtendedSoftuniadaEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
