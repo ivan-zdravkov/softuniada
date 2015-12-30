@@ -1,6 +1,6 @@
 ﻿namespace WebServices.Models
 {
-    public class MailModel
+    public class SimpleMailModel
     {
         public string From { get; set; }
 

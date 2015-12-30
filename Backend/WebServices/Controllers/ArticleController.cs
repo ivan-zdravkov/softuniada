@@ -1,62 +1,101 @@
-﻿using System.Web.Http;
+﻿using DAL.Models;
+using System.Collections.Generic;
+using System.Web.Http;
 using WebServices.Models;
 
 namespace WebServices.Controllers
 {
-    [RoutePrefix("api/Article")]
-    //[Authorize]
+    [RoutePrefix("api/article")]
+    [Authorize]
     public class ArticleController : BaseApiController
     {
         [HttpGet]
-        [Route("GetAllArticles")]
+        [Route("getAll")]
+        [AllowAnonymous]
         public IHttpActionResult GetAllArticles()
         {
-            //Return ArticleOutputModel
-            return Ok();
+            IEnumerable<ArticleOutputModel> allArticles = this.SoftuniadaDAL.GetAllArticles();
+
+            return Ok(allArticles);
         }
 
         [HttpGet]
-        [Route("GetArticleById/{articleId}")]
+        [Route("getById/{articleId}")]
+        [AllowAnonymous]
         public IHttpActionResult GetArticleById(int articleId)
         {
-            //Return ArticleOutputModel
-            return Ok();
+            ArticleOutputModel article = this.SoftuniadaDAL.GetArticleById(articleId);
+
+            return Ok(article);
         }
 
         [HttpPost]
-        [Route("CreateArticle")]
+        [Route("create")]
         public IHttpActionResult CreateArticle(ArticleInputModel article)
         {
-            return Ok();
+            if (ModelState.IsValid)
+            { 
+                ArticleOutputModel createdArticle = this.SoftuniadaDAL.CreateArticle(article);
+
+                return Ok(createdArticle);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPut]
-        [Route("UpdateArticle")]
-        public IHttpActionResult UpdateArticle(ArticleInputModel article)
+        [Route("update/{articleId}")]
+        [Authorize(Roles = "Administrator")]
+        public IHttpActionResult UpdateArticle(int articleId, ArticleInputModel article)
         {
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                ArticleOutputModel updatedArticle = this.SoftuniadaDAL.UpdateArticle(articleId, article);
+
+                return Ok(updatedArticle);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPut]
-        [Route("ChangeArticleStatus")]
+        [Route("changeStatus")]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult ChangeArticleStatus(ArticleStatusModel model)
         {
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                this.SoftuniadaDAL.ChangeArticleStatus(model);
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpDelete]
-        [Route("DeleteArticle/{articleId}")]
-        public IHttpActionResult DeleteArticles(int articleId)
+        [Authorize(Roles = "Administrator")]
+        [Route("delete/{articleId}")]
+        public IHttpActionResult DeleteArticle(int articleId)
         {
+            this.SoftuniadaDAL.DeleteArticle(articleId);
+
             return Ok();
         }
 
         [HttpGet]
-        [Route("GetAllStatuses")]
+        [Route("getAllStatuses")]
         public IHttpActionResult GetAllStatuses()
         {
-            //Return BasicModel
-            return Ok();
+            IEnumerable<BasicModel> allArticleStatuses = this.SoftuniadaDAL.GetAllStatuses();
+
+            return Ok(allArticleStatuses);
         }
     }
 }

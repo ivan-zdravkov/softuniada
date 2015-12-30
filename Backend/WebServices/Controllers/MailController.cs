@@ -3,13 +3,13 @@ using WebServices.Models;
 
 namespace WebServices.Controllers
 {
-    [RoutePrefix("api/Mail")]
-    //[Authorize]
+    [RoutePrefix("api/mail")]
+    [Authorize]
     public class MailController : BaseApiController
     {
         [HttpPost]
-        [Route("SendMail")]
-        public IHttpActionResult SendMail(MailModel mail)
+        [Route("sendMail")]
+        public IHttpActionResult SendMail(SimpleMailModel mail)
         {
             return Ok();
         }

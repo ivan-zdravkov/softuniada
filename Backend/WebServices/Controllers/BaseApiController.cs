@@ -37,6 +37,11 @@ namespace WebServices.Controllers
             softuniadaDAL = new SoftuniadaDAL(currentUserId);
         }
 
+        protected SoftuniadaDAL SoftuniadaDAL
+        {
+            get { return this.softuniadaDAL; }
+        }
+
         protected ApplicationUserManager AppUserManager
         {
             get

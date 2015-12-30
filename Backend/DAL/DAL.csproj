@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalConstants.cs" />
+    <Compile Include="Models\ArticleInputModel.cs" />
+    <Compile Include="Models\ArticleOutputModel.cs" />
+    <Compile Include="Models\ArticleStatusModel.cs" />
+    <Compile Include="Models\BasicModel.cs" />
     <Compile Include="SoftuniadaDAL.cs" />
     <Compile Include="EntityFramework\Article.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
@@ -104,9 +108,7 @@
     <Compile Include="Extensions\ExtendedSoftuniadaEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EntityDeploy Include="EntityFramework\DBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
