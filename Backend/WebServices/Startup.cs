@@ -22,14 +22,14 @@ namespace WebServices
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(CorsOptions.AllowAll);
+
             HttpConfiguration httpConfig = new HttpConfiguration();
 
             ConfigureOAuthTokenGeneration(app);
             ConfigureOAuthTokenConsumption(app);
 
             ConfigureWebApi(httpConfig);
-
-            app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(httpConfig);
         }
 

@@ -13,9 +13,8 @@ app.factory('userService', ['$http', '$q', 'authSettings', 'authenticationServic
 		};
 
 		var _loginUser = function (user) {
-			user.grant_type = 'password';
 			var resourceURL = serviceBase + '/oauth/token';
-	        var promise = queryService.post(resourceURL, user, 'UTC');
+	        var promise = queryService.login(resourceURL, "userName=" + user.username + "&password=" + user.password + "&grant_type=password", 'UTC');
 
 	        promise.then(function (data) {
 	        	data.username = user.username;
