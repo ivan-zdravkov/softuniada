@@ -163,5 +163,23 @@ namespace WebServices.Controllers
                 return BadRequest("The email could not be varified.");
             }
         }
+
+        [HttpGet]
+        [Route("isAdmin/{email}")]
+        [AllowAnonymous]
+        public IHttpActionResult IsAdmin(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ModelState.AddModelError("", "Email is required");
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser user = this.AppUserManager.FindByEmail(email);
+            var roles = user.Roles.ToList();
+            bool result = user.Roles.Any(r => r.ToString() == "Administrator");
+
+            return Ok(result);
+        }
     }
 }

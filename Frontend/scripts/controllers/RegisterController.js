@@ -7,6 +7,7 @@ app.controller('RegisterController',
 		$scope.invalidPassword = false;
 		$scope.invalidConfPassword = false;
 		$scope.invalidPasswords = false;
+		$scope.isDataLoading = false;
 
 		$scope.emailChange = function () {
 			if ($scope.invalidEmail && $scope.reg.email && $scope.reg.email.length > 0) {
@@ -59,8 +60,19 @@ app.controller('RegisterController',
 
 			if (!$scope.invalidEmail && !$scope.invalidPassword && 
 				!$scope.invalidConfPassword && !$scope.invalidPasswords) {
-				notyService.successMessage('Registration successful. Please check your e-mail.', 5);
-				$location.path('/');
+				var user = {
+					email: $scope.reg.email,
+					password: $scope.reg.password,
+					confirmPassword: $scope.reg.confPassword
+				};
+
+				$scope.isDataLoading = true;
+				userService.registerUser(user).then(function () {
+					notyService.successMessage('Registration successful. Please check your e-mail.', 5);
+					$scope.isDataLoading = false;
+					$location.path('/');
+				});
+				
 			}
 		};
 	}]

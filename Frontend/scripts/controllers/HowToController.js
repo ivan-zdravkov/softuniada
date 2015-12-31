@@ -1,8 +1,8 @@
 'use strict';
 
 app.controller('HowToController', 
-	['$scope', '$q', '$location', 'authenticationService', 'articleService', 'categoryService', 
-		function ($scope, $q, $location, authenticationService, articleService, categoryService) {
+	['$scope', '$q', '$location', 'authenticationService', 'articleService', 'categoryService', 'notyService',
+		function ($scope, $q, $location, authenticationService, articleService, categoryService, notyService) {
 			$scope.isDataLoading = false;
 			$scope.isAdmin = authenticationService.isAdmin();
 			$scope.articlesArray = [];
@@ -23,6 +23,9 @@ app.controller('HowToController',
 			}));
 
 			$q.all(requestQueue).then(function () {
+				$scope.isDataLoading = false;
+			}, function () {
+				notyService.errorMessage("Failed to load content.");
 				$scope.isDataLoading = false;
 			});
 
@@ -76,7 +79,7 @@ app.controller('HowToController',
 
 			$scope.articlesArray.push({
 				id: 1,
-				title: 'How to build a real lightsaber',
+				title: 'Dummy article #1',
 				statusId: 2,
 				categoryId: 1,
 				createdDate: new Date(),
@@ -86,7 +89,7 @@ app.controller('HowToController',
 
 			$scope.articlesArray.push({
 				id: 8,
-				title: 'How to build a real lightsaber',
+				title: 'Dummy article #2',
 				statusId: 3,
 				categoryId: 3,
 				createdDate: new Date(),
@@ -96,7 +99,7 @@ app.controller('HowToController',
 
 			$scope.articlesArray.push({
 				id: 2,
-				title: 'How to become a Jedi',
+				title: 'Dummy article #3',
 				statusId: 1,
 				categoryId: 2,
 				createdDate: new Date(),
@@ -106,7 +109,7 @@ app.controller('HowToController',
 
 			$scope.articlesArray.push({
 				id: 2,
-				title: 'How to become a Jedi',
+				title: 'Dummy article #4',
 				statusId: 1,
 				categoryId: 2,
 				createdDate: new Date(),
@@ -116,7 +119,7 @@ app.controller('HowToController',
 
 			$scope.articlesArray.push({
 				id: 3,
-				title: 'How to become a Sith Lord',
+				title: 'Dummy article #5',
 				statusId: 1,
 				categoryId: 4,
 				createdDate: new Date(),
@@ -126,7 +129,7 @@ app.controller('HowToController',
 
 			$scope.articlesArray.push({
 				id: 4,
-				title: 'How to become a Jedi Master',
+				title: 'Dummy article #6',
 				statusId: 1,
 				categoryId: 6,
 				createdDate: new Date(),
@@ -136,7 +139,7 @@ app.controller('HowToController',
 
 			$scope.articlesArray.push({
 				id: 5,
-				title: 'How to become a Sith Lord',
+				title: 'Dummy article #7',
 				statusId: 2,
 				categoryId: 7,
 				createdDate: new Date(),
@@ -146,7 +149,7 @@ app.controller('HowToController',
 
 			$scope.articlesArray.push({
 				id: 6,
-				title: 'How to become a Jedi Master',
+				title: 'Dummy article #8',
 				statusId: 3,
 				categoryId: 2,
 				createdDate: new Date(),

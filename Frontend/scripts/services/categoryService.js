@@ -5,28 +5,28 @@ app.factory('categoryService', ['authSettings', 'queryService',	function (authSe
 	var serviceBase = authSettings.baseUri;
 
 	var _getAllCategories = function () {
-		var resourceURL = serviceBase + '/api/Category/GetAllCategories';
+		var resourceURL = serviceBase + '/api/category/getAll';
         var promise = queryService.get(resourceURL, 'UTC');
 
         return promise;
 	};
 
 	var _createCategory = function (category) {
-		var resourceURL = serviceBase + '/api/Category/CreateCategory';
+		var resourceURL = serviceBase + '/api/category/create';
         var promise = queryService.post(resourceURL, 'UTC');
 
         return promise;
 	};
 
 	var _updateCategory = function (category) {
-		var resourceURL = serviceBase + '/api/Category/UpdateCategory';
+		var resourceURL = serviceBase + '/api/category/update';
         var promise = queryService.put(resourceURL, category, 'UTC');
 
         return promise;
 	};
 
 	var _deleteCategory = function () {
-		var resourceURL = serviceBase + '/api/Category/DeleteCategory';
+		var resourceURL = serviceBase + '/api/category/delete';
         var promise = queryService.delete(resourceURL, 'UTC');
 
         return promise;

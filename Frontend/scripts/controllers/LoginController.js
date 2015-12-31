@@ -1,9 +1,10 @@
 'use strict';
 
 app.controller('LoginController', 
-	['$scope', '$location', '$rootScope', 'userService', function ($scope, $location, $rootScope, userService) {
+	['$scope', '$location', '$rootScope', 'userService', 'notyService', 'authenticationService', function ($scope, $location, $rootScope, userService, notyService, authenticationService) {
 		$scope.invalidEmail = false;
 		$scope.invalidPassword = false;
+		$scope.isDataLoading = false;
 
 		$scope.emailChange = function() {
 			if ($scope.invalidEmail && $scope.email && $scope.email.length > 0) {
@@ -36,20 +37,25 @@ app.controller('LoginController',
 					password: $scope.password
 				};
 
-				// var token = {
-				// 	"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1laWQiOiI2MzNkMDNlNS04NmZiLTRiNjEtOWZlYy0yNWZmZmZmNTM0YjciLCJ1bmlxdWVfbmFtZSI6ImRvaXR5b3Vyc2VsZi53ZWJtYWlsQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYWNjZXNzY29udHJvbHNlcnZpY2UvMjAxMC8wNy9jbGFpbXMvaWRlbnRpdHlwcm92aWRlciI6IkFTUC5ORVQgSWRlbnRpdHkiLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6ImNjZDBjMDgzLTMyZDQtNGVjMC04MjRjLTI0Njc3OTdjN2RlYiIsInJvbGUiOlsiVXNlciIsIkFkbWluaXN0cmF0b3IiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDoxMzQ0NyIsImF1ZCI6IjYwMzlmNmUxMjNiNjQ2YTc5OTEzY2JmMjc2NmMwNWEyIiwiZXhwIjoxNDUxMjE5MjMwLCJuYmYiOjE0NTExMzI4MzB9.bx61rCYCKbEhI8YF0TVu16umwH72BtW0HOIZVZf3o9o",
-				// 	"token_type": "bearer",
-				// 	"isAdmin": true,
-				// 	"expires_in": 86399,
-				// 	"username": user.username
-				// };
-				// localStorage.setItem('user', JSON.stringify(token));
-				// $rootScope.isLoggedIn = true;
-				// $rootScope.isAdmin = true;
-				// $rootScope.username = user.username;
-				// $location.path('/');
-				userService.loginUser(user).then(function (response) {
-					$location.path('/');
+				$scope.isDataLoading = true;
+				userService.loginUser(user).then(function (data) {
+		        	data.username = user.username;
+					authenticationService.saveUser(data);
+					
+					$rootScope.isLoggedIn = true;
+					$rootScope.username = user.username;
+					$rootScope.isAdmin = true;
+					userService.isAdmin(user.username).then(function (isAdmin) {
+						$rootScope.isAdmin = isAdmin == 'true';
+						$scope.isDataLoading = false;
+						$location.path('/');
+					}, function () {
+						notyService.errorMessage("Incorrect username or password.");
+						$scope.isDataLoading = false;
+					});
+				}, function () {
+					notyService.errorMessage("Incorrect username or password.");
+					$scope.isDataLoading = false;
 				});
 			}
 		};
