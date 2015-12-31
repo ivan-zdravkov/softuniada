@@ -200,14 +200,11 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Filters\GlobalExceptionFilterAttribute.cs" />
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
-    <Compile Include="Models\ArticleInputModel.cs" />
-    <Compile Include="Models\ArticleOutputModel.cs" />
-    <Compile Include="Models\ArticleStatusModel.cs" />
-    <Compile Include="Models\BasicModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
-    <Compile Include="Models\MailModel.cs" />
+    <Compile Include="Models\SimpleMailModel.cs" />
     <Compile Include="Models\RegisterUserModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -219,6 +216,12 @@
     <Compile Include="Providers\CustomOAuthProvider.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{7e57b645-028a-4232-bfc3-6f134fb69193}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

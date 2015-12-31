@@ -1,39 +1,51 @@
-﻿using System.Web.Http;
+﻿using DAL.Models;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web.Http;
 using WebServices.Models;
 
 namespace WebServices.Controllers
 {
-    [RoutePrefix("api/Category")]
-    //[Authorize]
+    [RoutePrefix("api/category")]
+    [Authorize]
     public class CategoryController : BaseApiController
     {
         [HttpGet]
-        [Route("GetAllCategories")]
+        [Route("getAll")]
         public IHttpActionResult GetAllCategories()
         {
-            //Return BasicModel
-            return Ok();
+            IEnumerable<BasicModel> allCategories = this.SoftuniadaDAL.GetAllCategories();
+
+            return Ok(allCategories);
         }
 
         [HttpPost]
-        [Route("CreateCategory")]
-        public IHttpActionResult CreateCategory(BasicModel category)
+        [Route("create")]
+        [Authorize(Roles = "Administrator")]
+        public IHttpActionResult CreateCategory(string categoryName)
         {
-            // Return CategoryId
-            return Ok();
+            int categoryId = this.SoftuniadaDAL.CreateCategory(categoryName);
+
+            return Ok(categoryId);
         }
 
         [HttpPut]
-        [Route("UpdateCategory")]
+        [Route("update")]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult UpdateCategory(BasicModel category)
         {
+            this.SoftuniadaDAL.UpdateCategory(category);
+
             return Ok();
         }
 
         [HttpDelete]
-        [Route("DeleteCategory/{categoryId}")]
+        [Route("delete/{categoryId}")]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult DeleteCategory(int categoryId)
         {
+            this.SoftuniadaDAL.DeleteCategory(categoryId);
+
             return Ok();
         }
     }

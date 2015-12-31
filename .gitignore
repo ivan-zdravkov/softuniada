@@ -5,3 +5,4 @@ bin
 /Backend/DataPopulation/DataPopulation.dbmdl
 /Backend/packages
 /Frontend/TODO_Tasks.txt
+/Backend/DAL/obj
