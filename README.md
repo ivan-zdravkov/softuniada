@@ -8,11 +8,9 @@
 ### How do I get set up? ###
 
 * Clone the repository to a local folder
-* Start localhost service and run the backend solution
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Start localhost service (WAMP) or IIS (point Frontend folder as Physical Path and ) and run the backend solution
+* Dependencies - Visual Studio 2015, Microsoft SQL Server 2014 Express
+* Database configuration - right click on "DataPopulation.publish.xml" in back-end project "DataPopulation" and then click "Publish"
 
 ### Who do I talk to? ###
 
