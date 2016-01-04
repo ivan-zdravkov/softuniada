@@ -16,25 +16,32 @@ namespace WebServices.Controllers
     [GlobalExceptionFilterAttribute]
     public class BaseApiController : ApiController
     {
+        private string currentUserId = null;
         private SoftuniadaDAL softuniadaDAL = null;
         private ApplicationUserManager appUserManager = null;
         private ApplicationRoleManager appRoleManager = null;
 
         public BaseApiController()
         {
-            string currentUserId = null;
-
             if (HttpContext.Current != null && HttpContext.Current.User != null && HttpContext.Current.User.Identity != null)
             {
-                currentUserId = HttpContext.Current.User.Identity.GetUserId();
+                this.currentUserId = HttpContext.Current.User.Identity.GetUserId();
             }
 
-            if (currentUserId == null)
+            if (this.currentUserId == null)
             {
-                currentUserId = GlobalConstants.SystemAdministratorId;
+                this.currentUserId = GlobalConstants.SystemAdministratorId;
             }
 
-            softuniadaDAL = new SoftuniadaDAL(currentUserId);
+            softuniadaDAL = new SoftuniadaDAL(this.currentUserId);
+        }
+
+        protected string CurrentUserId
+        {
+            get
+            {
+                return this.currentUserId;
+            }
         }
 
         protected SoftuniadaDAL SoftuniadaDAL

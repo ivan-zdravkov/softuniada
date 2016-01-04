@@ -165,21 +165,12 @@ namespace WebServices.Controllers
         }
 
         [HttpGet]
-        [Route("isAdmin/{email}")]
-        [AllowAnonymous]
-        public IHttpActionResult IsAdmin(string email)
+        [Route("isAdmin")]
+        public IHttpActionResult IsAdmin()
         {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                ModelState.AddModelError("", "Email is required");
-                return BadRequest(ModelState);
-            }
+            bool isAdmin = this.AppUserManager.IsInRole(this.CurrentUserId, "Administrator");
 
-            ApplicationUser user = this.AppUserManager.FindByEmail(email);
-            var roles = user.Roles.ToList();
-            bool result = user.Roles.Any(r => r.ToString() == "Administrator");
-
-            return Ok(result);
+            return Ok(isAdmin);
         }
     }
 }

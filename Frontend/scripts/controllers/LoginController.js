@@ -44,14 +44,14 @@ app.controller('LoginController',
 					
 					$rootScope.isLoggedIn = true;
 					$rootScope.username = user.username;
-					$rootScope.isAdmin = true;
 					userService.isAdmin(user.username).then(function (isAdmin) {
-						$rootScope.isAdmin = isAdmin == 'true';
+						$rootScope.isAdmin = isAdmin;
 						$scope.isDataLoading = false;
 						$location.path('/');
 					}, function () {
-						notyService.errorMessage("Incorrect username or password.");
+						$rootScope.isAdmin = false;
 						$scope.isDataLoading = false;
+						$location.path('/');
 					});
 				}, function () {
 					notyService.errorMessage("Incorrect username or password.");

@@ -23,9 +23,9 @@ app.factory('userService', ['$http', '$q', '$rootScope', 'authSettings', 'authen
 			authenticationService.removeUser();
 		};
 
-		var _isAdmin = function (email) {
+		var _isAdmin = function () {
 			var resourceURL = serviceBase + '/api/accounts/isAdmin';
-	        var promise = queryService.login(resourceURL, "email=" + email, 'UTC');
+	        var promise = queryService.get(resourceURL, 'UTC');
 
 	        return promise;
 		};
