@@ -1,13 +1,13 @@
 'use strict';
 
 app.controller('ShareController', 
-	['$scope', '$rootScope', '$location', 'notyService', 'mailService', function ($scope, $rootScope, $location, notyService, mailService) {
+	['$scope', '$rootScope', '$location', 'notyService', 'articleService', function ($scope, $rootScope, $location, notyService, articleService) {
 		$scope.article = {};
 		$scope.article.from = $rootScope.username;
 		$scope.invalidTitle = false;
 		$scope.invalidContent = false;
 		$scope.isPreview = false;
-		$scope.isDataLoading = false;
+		$rootScope.isDataLoading = false;
 
 		$scope.titleChange = function () {
 			if ($scope.invalidTitle && $scope.article.title && $scope.article.title.length >= 1) {
@@ -26,6 +26,9 @@ app.controller('ShareController',
 		};
 
 		$scope.send = function () {
+			$scope.article.tags = [];
+			$scope.article.categoryId = 2;
+			
 			if (!$scope.article.title || $scope.article.title.length < 1) {
 				$scope.invalidTitle = true;
 			} else {
@@ -39,10 +42,10 @@ app.controller('ShareController',
 			}
 
 			if (!$scope.invalidTitle && !$scope.invalidContent) {
-				$scope.isDataLoading = true;
-				mailService.sendMail($scope.message).then(function () {
+				$rootScope.isDataLoading = true;
+				articleService.submitArticle($scope.article).then(function () {
 					notyService.successMessage('Your message was sent successfully.');
-					$scope.isDataLoading = false;
+					$rootScope.isDataLoading = false;
 					$location.path('/');
 				});
 			}

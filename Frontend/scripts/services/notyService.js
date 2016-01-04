@@ -3,7 +3,7 @@
 app.factory('notyService', function () {
     var _successMessage = function showSuccessMessage(msg, seconds) {
         if (!seconds) {
-             seconds = 3;
+             seconds = 4;
         }
         
         noty({
@@ -16,7 +16,7 @@ app.factory('notyService', function () {
 
     var _errorMessage = function showErrorMessage(msg, seconds) {
         if (!seconds) {
-             seconds = 3;
+             seconds = 4;
         }
 
         noty({

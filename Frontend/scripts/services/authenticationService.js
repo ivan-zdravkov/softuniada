@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('authenticationService', ['$rootScope', function ($rootScope) {
+app.factory('authenticationService', ['$rootScope', '$location', function ($rootScope, $location) {
 	var key = 'user';
 
 	var _saveUser = function (data) {
@@ -12,11 +12,18 @@ app.factory('authenticationService', ['$rootScope', function ($rootScope) {
 		return token;
 	};
 
-	var _logout = function () {
+	var _logout = function (shouldRedirectToLogin) {
 		localStorage.removeItem(key);
 		$rootScope.isLoggedIn = false;
 		$rootScope.isAdmin = false;
 		$rootScope.username = '';
+		
+		if (shouldRedirectToLogin) {
+			$location.path('/login');
+		}
+		else {
+			$location.path('/');
+		}
 	};
 
 	var _getHeaders = function () {
@@ -33,17 +40,6 @@ app.factory('authenticationService', ['$rootScope', function ($rootScope) {
 		return !!_getUser();
 	};
 
-	var _isAdmin = function () {
-		var isAdmin = false;;
-		var user = _getUser();
-
-		if (user) {
-			return !!user.isAdmin;
-		}
-
-		return false;
-	};
-
 	var _getUsername = function () {
 		var token = JSON.parse(localStorage.getItem(key));
 		if (token) {
@@ -58,7 +54,6 @@ app.factory('authenticationService', ['$rootScope', function ($rootScope) {
 		logout: _logout,
 		getHeaders: _getHeaders,
 		isLoggedIn: _isLoggedIn,
-		isAdmin: _isAdmin,
 		getUsername: _getUsername
 	};
 }]);

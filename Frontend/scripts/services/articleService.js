@@ -18,6 +18,13 @@ app.factory('articleService', ['$http', '$q', 'authSettings', 'authenticationSer
 
 	        return promise;
 		};
+		
+		var _submitArticle = function (article) {
+			var resourceURL = serviceBase + '/api/article/submit';
+	        var promise = queryService.post(resourceURL, article, 'UTC');
+
+	        return promise;
+		};
 
 		var _createArticle = function (article) {
 			var resourceURL = serviceBase + '/api/article/create';
@@ -57,6 +64,7 @@ app.factory('articleService', ['$http', '$q', 'authSettings', 'authenticationSer
 		return {
 			getAllArticles: _getAllArticles,
 			getArticleById: _getArticleById,
+			submitArticle: _submitArticle,
 			createArticle: _createArticle,
 			updateArticle: _updateArticle,
 			changeArticleStatus: _changeArticleStatus,

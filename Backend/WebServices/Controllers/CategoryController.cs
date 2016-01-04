@@ -12,6 +12,7 @@ namespace WebServices.Controllers
     {
         [HttpGet]
         [Route("getAll")]
+        [AllowAnonymous]
         public IHttpActionResult GetAllCategories()
         {
             IEnumerable<BasicModel> allCategories = this.SoftuniadaDAL.GetAllCategories();

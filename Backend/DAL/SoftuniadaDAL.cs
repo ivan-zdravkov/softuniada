@@ -63,7 +63,8 @@ namespace DAL
                         {
                             Id = at.Tag.Id,
                             Name = at.Tag.Name
-                        })
+                        }),
+                    CreatedDate = article.CreatedAt.Value
                 };
             }
             else
@@ -93,7 +94,8 @@ namespace DAL
                         {
                             Id = at.Tag.Id,
                             Name = at.Tag.Name
-                        })
+                        }),
+                    CreatedDate = article.CreatedAt.Value
                 }).ToList();
         }
 
@@ -119,7 +121,8 @@ namespace DAL
                        {
                            Id = at.Tag.Id,
                            Name = at.Tag.Name
-                       })
+                       }),
+                   CreatedDate = article.CreatedAt.Value
                }).ToList();
         }
 
@@ -145,18 +148,19 @@ namespace DAL
                        {
                            Id = at.Tag.Id,
                            Name = at.Tag.Name
-                       })
+                       }),
+                   CreatedDate = article.CreatedAt.Value
                }).ToList();
         }
 
-        public ArticleOutputModel CreateArticle(ArticleInputModel articleModel)
+        public ArticleOutputModel CreateArticle(ArticleInputModel articleModel, int? statusId)
         {
             Article article = this.DB.Articles.Create();
 
             article.Name = articleModel.Title;
             article.Text = articleModel.Content;
             article.CategoryID = articleModel.CategoryId;
-            article.StatusID = (int)StatusesEnum.Pending;
+            article.StatusID = statusId.HasValue ? statusId.Value : (int)StatusesEnum.Pending;
             //article.HeaderPicture = articleModel.Image;
 
             IEnumerable<BasicModel> existingTags = this.DB.Tags

@@ -61,3 +61,27 @@ app.config(['$routeProvider', function ($routeProvider) {
 		    redirectTo: '/404'
 		});
 }]);
+
+app.factory('queryInterceptor', ['$q', '$rootScope', 'authenticationService', 'notyService', function($q, $rootScope, authenticationService, notyService) {  
+    return {
+		responseError: function(response) {
+			var deferred = $q.defer();
+			
+			if (response.status == 401) {
+				authenticationService.logout(true);
+				notyService.errorMessage('You must login to execute this action!');
+			}
+			else if (response.status == 500) {
+				notyService.errorMessage('Oops, something went wrong.');
+				$rootScope.isDataLoading = false;
+			}
+			
+			deferred.reject(response);
+            return deferred.promise;
+		}
+    };
+}]);
+
+app.config(['$httpProvider', function($httpProvider) {  
+    $httpProvider.interceptors.push('queryInterceptor');
+}]);

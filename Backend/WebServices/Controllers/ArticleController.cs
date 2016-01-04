@@ -50,12 +50,29 @@ namespace WebServices.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("submit")]
         public IHttpActionResult CreateArticle(ArticleInputModel article)
         {
             if (ModelState.IsValid)
             { 
-                ArticleOutputModel createdArticle = this.SoftuniadaDAL.CreateArticle(article);
+                ArticleOutputModel createdArticle = this.SoftuniadaDAL.CreateArticle(article, null);
+
+                return Ok(createdArticle);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPost]
+        [Route("create")]
+        [Authorize(Roles = "Administrator")]
+        public IHttpActionResult CreateArticleAsAdmin(ArticleInputAdminModel article)
+        {
+            if (ModelState.IsValid)
+            {
+                ArticleOutputModel createdArticle = this.SoftuniadaDAL.CreateArticle(article, article.StatusId);
 
                 return Ok(createdArticle);
             }
@@ -111,6 +128,7 @@ namespace WebServices.Controllers
 
         [HttpGet]
         [Route("getAllStatuses")]
+        [AllowAnonymous]
         public IHttpActionResult GetAllStatuses()
         {
             IEnumerable<BasicModel> allArticleStatuses = this.SoftuniadaDAL.GetAllStatuses();

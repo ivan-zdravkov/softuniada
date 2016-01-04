@@ -1,21 +1,21 @@
 'use strict';
 
 app.controller('CategoryController', 
-	['$scope', 'categoryService', 'notyService', function ($scope, categoryService, notyService) {
-		$scope.isDataLoading = false;
+	['$scope', '$rootScope', 'categoryService', 'notyService', function ($scope, $rootScope, categoryService, notyService) {
+		$rootScope.isDataLoading = false;
 		$scope.categories = [];
 		$scope.newCategory = {};
 		$scope.invalidCategoryName = false;
 
-		// $scope.isDataLoading = true;
+		// $rootScope.isDataLoading = true;
 		// categoryService.getAllCategories().then(function (response) {
 		// 	$scope.categories = response;
-		// 	$scope.isDataLoading = false;
+		// 	$rootScope.isDataLoading = false;
 		// });
 
 		$scope.createCategory = function () {
 			if ($scope.newCategory.name && $scope.newCategory.name.length > 1) {
-				$scope.isDataLoading = true;
+				$rootScope.isDataLoading = true;
 				categoryService.createCategory($scope.newCategory).then(function (categoryId) {
 					$scope.categories.push({
 						id: categoryId,
@@ -25,7 +25,7 @@ app.controller('CategoryController',
 					$scope.newCategory.name = '';
 
 					notyService.successMessage('Category successfully created.');
-					$scope.isDataLoading = false;
+					$rootScope.isDataLoading = false;
 				});
 			} else {
 				$scope.invalidCategoryName = true;
@@ -36,10 +36,10 @@ app.controller('CategoryController',
 			var categoryForUpdate = _.find($scope.categories, { id: categoryId });
 
 			if (categoryForUpdate && categoryForUpdate.name && categoryForUpdate.name.length > 1) {
-				$scope.isDataLoading = true;
+				$rootScope.isDataLoading = true;
 				categoryService.createCategory($scope.newCategory).then(function () {
 					notyService.successMessage('Category successfully updated.');
-					$scope.isDataLoading = false;
+					$rootScope.isDataLoading = false;
 				});
 			} else {
 				$scope.invalidCategoryName = true;
@@ -50,14 +50,14 @@ app.controller('CategoryController',
 			var categoryForDelete = _.find($scope.categories, { id: categoryId });
 
 			if (categoryForDelete) {
-				$scope.isDataLoading = true;
+				$rootScope.isDataLoading = true;
 				categoryService.createCategory($scope.newCategory).then(function () {
 					$scope.categories = $scope.categories.filter(function (category) {
 						return category.id !== categoryId;
 					});
 
 					notyService.successMessage('Category successfully deleted.');
-					$scope.isDataLoading = false;
+					$rootScope.isDataLoading = false;
 				});
 			} else {
 				notyService.successMessage('Category not found.');

@@ -6,7 +6,7 @@ app.controller('ContactUsController',
 		$scope.message.from = $rootScope.username;
 		$scope.invalidSubject = false;
 		$scope.invalidContent = false;
-		$scope.isDataLoading = false;
+		$rootScope.isDataLoading = false;
 
 		$scope.subjectChange = function () {
 			if ($scope.invalidSubject && $scope.message.subject && $scope.message.subject.length >= 1) {
@@ -34,10 +34,10 @@ app.controller('ContactUsController',
 			}
 
 			if (!$scope.invalidSubject && !$scope.invalidContent) {
-				$scope.isDataLoading = true;
+				$rootScope.isDataLoading = true;
 				mailService.sendMail($scope.message).then(function () {
 					notyService.successMessage('Your message was sent successfully.');
-					$scope.isDataLoading = false;
+					$rootScope.isDataLoading = false;
 					$location.path('/');
 				});
 			}

@@ -1,10 +1,10 @@
 'use strict';
 
 app.controller('LoginController', 
-	['$scope', '$location', '$rootScope', 'userService', 'notyService', 'authenticationService', function ($scope, $location, $rootScope, userService, notyService, authenticationService) {
+	['$scope', '$rootScope', '$location', 'userService', 'notyService', 'authenticationService', function ($scope, $rootScope, $location, userService, notyService, authenticationService) {
 		$scope.invalidEmail = false;
 		$scope.invalidPassword = false;
-		$scope.isDataLoading = false;
+		$rootScope.isDataLoading = false;
 
 		$scope.emailChange = function() {
 			if ($scope.invalidEmail && $scope.email && $scope.email.length > 0) {
@@ -37,25 +37,25 @@ app.controller('LoginController',
 					password: $scope.password
 				};
 
-				$scope.isDataLoading = true;
+				$rootScope.isDataLoading = true;
 				userService.loginUser(user).then(function (data) {
 		        	data.username = user.username;
 					authenticationService.saveUser(data);
 					
 					$rootScope.isLoggedIn = true;
 					$rootScope.username = user.username;
-					userService.isAdmin(user.username).then(function (isAdmin) {
+					userService.isAdmin().then(function (isAdmin) {
 						$rootScope.isAdmin = isAdmin;
-						$scope.isDataLoading = false;
+						$rootScope.isDataLoading = false;
 						$location.path('/');
 					}, function () {
 						$rootScope.isAdmin = false;
-						$scope.isDataLoading = false;
+						$rootScope.isDataLoading = false;
 						$location.path('/');
 					});
 				}, function () {
 					notyService.errorMessage("Incorrect username or password.");
-					$scope.isDataLoading = false;
+					$rootScope.isDataLoading = false;
 				});
 			}
 		};

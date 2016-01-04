@@ -1,11 +1,11 @@
 'use strict';
 
 app.controller('ArticleController', 
-	['$scope', '$q', '$routeParams', '$location', 'articleService', 'categoryService', 'notyService', 
-		function ($scope, $q, $routeParams, $location, articleService, categoryService, notyService) {
+	['$scope', '$rootScope', '$q', '$routeParams', '$location', 'articleService', 'categoryService', 'notyService', 
+		function ($scope, $rootScope, $q, $routeParams, $location, articleService, categoryService, notyService) {
 
 			$('html,body').scrollTop(0);
-			$scope.isDataLoading = false;
+			$rootScope.isDataLoading = false;
 			$scope.isEditMode = $routeParams.action === 'edit';
 			$scope.isCreateMode = $routeParams.action === 'create';
 			$scope.isReadMode = $routeParams.action === 'read';
@@ -14,7 +14,7 @@ app.controller('ArticleController',
 			$scope.statuses = [];
 			$scope.categories = [];
 			$scope.articles = [];
-			$scope.isDataLoading = false;
+			$rootScope.isDataLoading = false;
 			$scope.invalidTitle = false;
 			$scope.invalidContent = false;
 			$scope.invalidStatus = false;
@@ -34,21 +34,21 @@ app.controller('ArticleController',
 			}
 
 			var requestQueue = [];
-			$scope.isDataLoading = true;
+			$rootScope.isDataLoading = true;
 			if (($scope.isEditMode || $scope.isReadMode) && !isNaN($scope.articleId) && $scope.articleId > 0) {
 				requestQueue.push(articleService.getArticleById($scope.articleId).then(function (response) {
-					// $scope.article = response;
+					$scope.article = response;
 				}));
 			}
 
 			if ($scope.isCreateMode || $scope.isEditMode) {
 				requestQueue.push(articleService.getAllStatuses().then(function (response) {
-					// $scope.statuses = response;
+					$scope.statuses = response;
 				}));
 			}
 
 			requestQueue.push(categoryService.getAllCategories().then(function (response) {
-				// $scope.categories = response;
+				$scope.categories = response;
 			}));
 
 			$q.all(requestQueue).then(function () {
@@ -62,7 +62,7 @@ app.controller('ArticleController',
 					}
 				}
 				
-				$scope.isDataLoading = false;
+				$rootScope.isDataLoading = false;
 			});
 
 			$scope.titleChange = function () {
@@ -100,10 +100,10 @@ app.controller('ArticleController',
 						statusId: status.id
 					};
 
-					$scope.isDataLoading = true;
+					$rootScope.isDataLoading = true;
 					articleService.changeArticleStatus(articleStatusObj).then(function (response) {
 						notyService.successMessage('Article status successfully updated.');
-						$scope.isDataLoading = false;
+						$rootScope.isDataLoading = false;
 					});
 				}
 			};
@@ -115,6 +115,8 @@ app.controller('ArticleController',
 			};
 
 			$scope.save = function () {
+				$scope.article.tags = [];
+				
 				if (!$scope.article.title || $scope.article.title.length < 1) {
 					$scope.invalidTitle = true;
 				} else {
@@ -145,17 +147,17 @@ app.controller('ArticleController',
 					.replace(/ style=""/gi, '');
 
 					if ($scope.isEditMode && $scope.article.id > 0) {
-						$scope.isDataLoading = true;
+						$rootScope.isDataLoading = true;
 						articleService.updateArticle($scope.article).then(function (response) {
 							notyService.successMessage('Article successfully updated.');
-							$scope.isDataLoading = false;
+							$rootScope.isDataLoading = false;
 							$scope.redirectToHowToPage();
 						});
 					} else if ($scope.isCreateMode && $scope.article.id === 0) {
-						$scope.isDataLoading = true;
+						$rootScope.isDataLoading = true;
 						articleService.createArticle($scope.article).then(function (response) {
 							notyService.successMessage('Article successfully created.');
-							$scope.isDataLoading = false;
+							$rootScope.isDataLoading = false;
 							$scope.redirectToHowToPage();
 						});
 					}
@@ -171,10 +173,10 @@ app.controller('ArticleController',
 			};
 
 			$scope.delete = function () {
-				$scope.isDataLoading = true;
+				$rootScope.isDataLoading = true;
 				articleService.deleteArticle($scope.article.id).then(function (response) {
 					notyService.successMessage('Article successfully deleted.');
-					$scope.isDataLoading = false;
+					$rootScope.isDataLoading = false;
 					$scope.redirectToHowToPage();
 				});
 			};
@@ -182,7 +184,7 @@ app.controller('ArticleController',
 
 			// ---------------------------------------------------------------------------------------------------------------------------------------
 			// Dummy objects
-			$scope.statuses = [
+			/*$scope.statuses = [
 				{ id: 1, name: 'Aproved' },
 				{ id: 2, name: 'Pending' },
 				{ id: 3, name: 'Deleted' }
@@ -280,9 +282,9 @@ app.controller('ArticleController',
 				createdDate: new Date(),
 				image: 'http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/5/4/1336122992437/Jedi-Master-Yoda-in-a-sce-006.jpg',
 				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-			});
+			});*/
 
-			if ($scope.articleId) {
+			/*if ($scope.articleId) {
 				$scope.articleId = +$scope.articleId;
 				$scope.article = _.find($scope.articles, { id: $scope.articleId });
 
@@ -295,7 +297,7 @@ app.controller('ArticleController',
 				} else {
 
 				}
-			}
+			}*/
 			// ---------------------------------------------------------------------------------------------------------------------------------------
 		}
 	]

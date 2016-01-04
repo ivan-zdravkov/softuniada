@@ -1,44 +1,57 @@
 'use strict';
 
 app.controller('HowToController', 
-	['$scope', '$q', '$location', 'authenticationService', 'articleService', 'categoryService', 'notyService',
-		function ($scope, $q, $location, authenticationService, articleService, categoryService, notyService) {
-			$scope.isDataLoading = false;
-			$scope.isAdmin = authenticationService.isAdmin();
+	['$scope', '$rootScope', '$q', '$location', 'authenticationService', 'articleService', 'categoryService', 'notyService',
+		function ($scope, $rootScope, $q, $location, authenticationService, articleService, categoryService, notyService) {
+			$rootScope.isDataLoading = false;
+			
+			$scope.approvedStatusId = 1;
 			$scope.articlesArray = [];
 
 			var requestQueue = [];
-			$scope.isDataLoading = true;
+			$rootScope.isDataLoading = true;
 			requestQueue.push(articleService.getAllArticles().then(function (response) {
-				// $scope.articlesArray = response;
-				// $scope.showAllArticles();
+				$scope.articlesArray = response;
+				$scope.showAllArticles();
 			}));
 
 			requestQueue.push(articleService.getAllStatuses().then(function (response) {
-				// $scope.statuses = response;
+				$scope.statuses = response;
 			}));
 
 			requestQueue.push(categoryService.getAllCategories().then(function (response) {
-				// $scope.categories = response;
+				$scope.categories = response;
 			}));
 
 			$q.all(requestQueue).then(function () {
-				$scope.isDataLoading = false;
+				$rootScope.isDataLoading = false;
 			}, function () {
 				notyService.errorMessage("Failed to load content.");
-				$scope.isDataLoading = false;
+				$rootScope.isDataLoading = false;
 			});
 
 			$scope.showAllArticles = function () {
-				$scope.articles = $scope.articles = $scope.articlesArray.filter(function (article) {
-					return article.statusId === 1;
-				});
+				if ($rootScope.isAdmin) {
+					$scope.articles = $scope.articlesArray;
+				}
+				else {
+					$scope.articles = $scope.articlesArray.filter(function (article) {
+						return article.statusId === $scope.approvedStatusId;
+					});
+				}
 			};
 			
 			$scope.showCategoryArticles = function (categoryId) {
-				$scope.articles = $scope.articlesArray.filter(function (article) {
-					return article.categoryId === categoryId && article.statusId === 1;
-				});
+				if ($rootScope.isAdmin) { 
+					$scope.articles = $scope.articlesArray.filter(function (article) {
+						return article.categoryId === categoryId;
+					});
+				}
+				else {
+					$scope.articles = $scope.articlesArray.filter(function (article) {
+						return article.categoryId === categoryId && article.statusId === $scope.approvedStatusId;
+					});
+				}
 			};
 
 			$scope.showStatusArticles = function (statusId) {
@@ -57,7 +70,7 @@ app.controller('HowToController',
 
 			// ---------------------------------------------------------------------------------------------------------------------------------------
 			// Dummy objects
-			$scope.statuses = [
+			/*$scope.statuses = [
 				{ id: 1, name: 'Aproved' },
 				{ id: 2, name: 'Pending' },
 				{ id: 3, name: 'Deleted' }
@@ -156,7 +169,7 @@ app.controller('HowToController',
 				image: 'http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/5/4/1336122992437/Jedi-Master-Yoda-in-a-sce-006.jpg',
 				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 			});
-			$scope.showAllArticles();
+			$scope.showAllArticles();*/
 			// ---------------------------------------------------------------------------------------------------------------------------------------
 		}
 	]
