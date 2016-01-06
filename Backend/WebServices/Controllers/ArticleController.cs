@@ -128,7 +128,7 @@ namespace WebServices.Controllers
 
         [HttpGet]
         [Route("getAllStatuses")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult GetAllStatuses()
         {
             IEnumerable<BasicModel> allArticleStatuses = this.SoftuniadaDAL.GetAllStatuses();
