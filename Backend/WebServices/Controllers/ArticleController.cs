@@ -111,6 +111,7 @@ namespace WebServices.Controllers
 
         [HttpGet]
         [Route("getAllStatuses")]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult GetAllStatuses()
         {
             IEnumerable<BasicModel> allArticleStatuses = this.SoftuniadaDAL.GetAllStatuses();
