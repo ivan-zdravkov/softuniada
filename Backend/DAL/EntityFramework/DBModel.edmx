@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SoftuniadaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SoftuniadaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,11 +12,11 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="HeaderPicture" Type="varbinary(max)" />
+          <Property Name="Image" Type="nvarchar" MaxLength="3000" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="StatusID" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -27,8 +27,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ArticleID" Type="int" Nullable="false" />
           <Property Name="TagID" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -40,8 +40,8 @@
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -53,8 +53,8 @@
           <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="NormalizedName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -66,8 +66,8 @@
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
           <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -81,8 +81,8 @@
           <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -93,8 +93,8 @@
           </Key>
           <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -117,8 +117,8 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" />
           <Property Name="Birthday" Type="datetime2" Precision="7" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -128,8 +128,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -139,8 +139,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -150,8 +150,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
           <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
@@ -322,8 +322,7 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SoftuniadaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -334,16 +333,16 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HeaderPicture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Article_Category" FromRole="Article" ToRole="Category" />
           <NavigationProperty Name="Status" Relationship="Self.FK_Article_Status" FromRole="Article" ToRole="Status" />
           <NavigationProperty Name="ArticleTags" Relationship="Self.FK_ArticleTag_Article" FromRole="Article" ToRole="ArticleTag" />
+          <Property Name="Image" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ArticleTag">
           <Key>
@@ -352,8 +351,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ArticleID" Type="Int32" Nullable="false" />
           <Property Name="TagID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Article" Relationship="Self.FK_ArticleTag_Article" FromRole="ArticleTag" ToRole="Article" />
@@ -367,8 +366,8 @@
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RoleId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetRole" Relationship="Self.FK_AspNetRoleClaims_AspNetRole" FromRole="AspNetRoleClaims" ToRole="AspNetRoles" />
@@ -381,8 +380,8 @@
           <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NormalizedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetRoleClaims" Relationship="Self.FK_AspNetRoleClaims_AspNetRole" FromRole="AspNetRoles" ToRole="AspNetRoleClaims" />
@@ -396,8 +395,8 @@
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetUserClaims_AspNetUsers" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
@@ -412,8 +411,8 @@
           <Property Name="LoginProvider" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderKey" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderDisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetUserLogins_AspNetUsers" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
@@ -425,8 +424,8 @@
           </Key>
           <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetRole" Relationship="Self.FK_AspNetUserRoles_AspNetRole" FromRole="AspNetUserRoles" ToRole="AspNetRoles" />
@@ -451,8 +450,8 @@
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Birthday" Type="DateTime" Precision="7" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_AspNetUserClaims_AspNetUsers" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
@@ -465,8 +464,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Articles" Relationship="Self.FK_Article_Category" FromRole="Category" ToRole="Article" />
@@ -477,8 +476,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Articles" Relationship="Self.FK_Article_Status" FromRole="Status" ToRole="Article" />
@@ -489,8 +488,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ArticleTags" Relationship="Self.FK_ArticleTag_Tag" FromRole="Tag" ToRole="ArticleTag" />
@@ -671,10 +670,10 @@
           <EntitySetMapping Name="Articles">
             <EntityTypeMapping TypeName="SoftuniadaModel.Article">
               <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="HeaderPicture" ColumnName="HeaderPicture" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

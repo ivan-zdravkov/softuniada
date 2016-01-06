@@ -40,7 +40,7 @@ namespace DAL.Extensions
                     if (entry.Entity.GetType().GetProperties().Where(t => t.Name == "CreatedAt").Any())
                     {
                         Type type = entry.Entity.GetType();
-                        type.GetProperties().Where(t => t.Name == "CreatedAt").First().SetValue(entry.Entity, DateTime.Now);
+                        type.GetProperties().Where(t => t.Name == "CreatedAt").First().SetValue(entry.Entity, DateTime.UtcNow);
                     }
                 }
             }
@@ -57,7 +57,7 @@ namespace DAL.Extensions
                 if (entry.Entity.GetType().GetProperties().Where(t => t.Name == "LastModifiedAt").Any())
                 {
                     Type type = entry.Entity.GetType();
-                    type.GetProperties().Where(t => t.Name == "LastModifiedAt").First().SetValue(entry.Entity, DateTime.Now);
+                    type.GetProperties().Where(t => t.Name == "LastModifiedAt").First().SetValue(entry.Entity, DateTime.UtcNow);
                 }
             }
 

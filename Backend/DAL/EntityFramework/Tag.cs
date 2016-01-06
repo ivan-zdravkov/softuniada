@@ -23,7 +23,7 @@ namespace DAL.EntityFramework
         public int Id { get; set; }
         public string Name { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public System.DateTime CreatedAt { get; set; }
         public string LastModifiedBy { get; set; }
         public Nullable<System.DateTime> LastModifiedAt { get; set; }
     

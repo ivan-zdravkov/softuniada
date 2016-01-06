@@ -69,7 +69,9 @@ namespace WebServices.Controllers
                     ApplicationUser user = new ApplicationUser()
                     {
                         UserName = createUserModel.Email,
-                        Email = createUserModel.Email
+                        Email = createUserModel.Email,
+                        CreatedBy = this.CurrentUserId,
+                        CreatedAt = DateTime.UtcNow
                     };
 
                     IdentityResult addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);

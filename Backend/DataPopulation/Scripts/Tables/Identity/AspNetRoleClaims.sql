@@ -4,8 +4,8 @@
 	[ClaimValue]		nvarchar(max)			NULL,
 	[RoleId]			nvarchar(450)		NOT NULL,
 
-	[CreatedBy]			nvarchar(450)			NULL,
-	[CreatedAt]			datetime				NULL,
+	[CreatedBy]			nvarchar(450)			NOT NULL,
+	[CreatedAt]			datetime				NOT NULL,
 	[LastModifiedBy]	nvarchar(450)			NULL,
 	[LastModifiedAt]	datetime				NULL,
 

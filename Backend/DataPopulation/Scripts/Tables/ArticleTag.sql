@@ -3,8 +3,8 @@
 	[ArticleID]			int						NOT NULL,
 	[TagID]				int						NOT NULL,
 	
-	[CreatedBy]			nvarchar(450)			NULL,
-	[CreatedAt]			datetime				NULL,
+	[CreatedBy]			nvarchar(450)			NOT NULL,
+	[CreatedAt]			datetime				NOT NULL,
 	[LastModifiedBy]	nvarchar(450)			NULL,
 	[LastModifiedAt]	datetime				NULL,
 

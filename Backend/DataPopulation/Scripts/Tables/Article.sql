@@ -2,12 +2,12 @@
 	[Id]				int						IDENTITY (1, 1) NOT NULL,
 	[Name]				nvarchar(1000)			NOT NULL,
 	[Text]				nvarchar(max)			NOT NULL,
-	[HeaderPicture]		varbinary(max)			NULL,
+	[Image]				nvarchar(3000)			NULL,
 	[CategoryID]		int						NOT NULL,
 	[StatusID]			int						NOT NULL,
 	
-	[CreatedBy]			nvarchar(450)			NULL,
-	[CreatedAt]			datetime				NULL,
+	[CreatedBy]			nvarchar(450)			NOT NULL,
+	[CreatedAt]			datetime				NOT NULL,
 	[LastModifiedBy]	nvarchar(450)			NULL,
 	[LastModifiedAt]	datetime				NULL,
 

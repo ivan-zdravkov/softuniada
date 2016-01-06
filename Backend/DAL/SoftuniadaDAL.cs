@@ -64,7 +64,7 @@ namespace DAL
                             Id = at.Tag.Id,
                             Name = at.Tag.Name
                         }),
-                    CreatedDate = article.CreatedAt.Value
+                    CreatedDate = article.CreatedAt
                 };
             }
             else
@@ -95,7 +95,7 @@ namespace DAL
                             Id = at.Tag.Id,
                             Name = at.Tag.Name
                         }),
-                    CreatedDate = article.CreatedAt.Value
+                    CreatedDate = article.CreatedAt
                 }).ToList();
         }
 
@@ -122,7 +122,7 @@ namespace DAL
                            Id = at.Tag.Id,
                            Name = at.Tag.Name
                        }),
-                   CreatedDate = article.CreatedAt.Value
+                   CreatedDate = article.CreatedAt
                }).ToList();
         }
 
@@ -149,7 +149,7 @@ namespace DAL
                            Id = at.Tag.Id,
                            Name = at.Tag.Name
                        }),
-                   CreatedDate = article.CreatedAt.Value
+                   CreatedDate = article.CreatedAt
                }).ToList();
         }
 
