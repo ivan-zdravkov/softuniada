@@ -15,6 +15,8 @@ namespace DAL.Models
 
         public string Image { get; set; }
 
+        public string ImageURL { get; set; }
+
         [Required]
         public string Content { get; set; }
 

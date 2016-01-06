@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CloudinaryDotNet, Version=1.0.23.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.0.23\lib\net40\CloudinaryDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -203,7 +207,7 @@
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Filters\GlobalExceptionFilterAttribute.cs" />
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
-    <Compile Include="Interfaces\IImageHandlerInterface.cs" />
+    <Compile Include="Interfaces\IImageServiceInterface.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\SimpleMailModel.cs" />
     <Compile Include="Models\RegisterUserModel.cs" />
@@ -215,7 +219,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
-    <Compile Include="Services\CloudinaryImageHandler.cs" />
+    <Compile Include="Services\CloudinaryImageService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

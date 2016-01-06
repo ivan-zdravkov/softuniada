@@ -161,7 +161,7 @@ namespace DAL
             article.Text = articleModel.Content;
             article.CategoryID = articleModel.CategoryId;
             article.StatusID = statusId.HasValue ? statusId.Value : (int)StatusesEnum.Pending;
-            article.Image = articleModel.Image;
+            article.Image = articleModel.ImageURL ?? null;
 
             IEnumerable<BasicModel> existingTags = this.DB.Tags
                 .AsNoTracking()
@@ -212,8 +212,12 @@ namespace DAL
             {
                 article.Name = articleModel.Title;
                 article.Text = articleModel.Content;
-                article.CategoryID = articleModel.CategoryId;
-                article.Image = articleModel.Image;
+                article.CategoryID = articleModel.CategoryId; 
+                
+                if (articleModel.ImageURL != null)
+                {
+                    article.Image = articleModel.ImageURL;
+                }
 
                 this.DB.ArticleTags.RemoveRange(article.ArticleTags);
 

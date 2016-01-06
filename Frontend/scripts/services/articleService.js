@@ -42,7 +42,7 @@ app.factory('articleService', ['$http', '$q', 'authSettings', 'authenticationSer
 
 		var _changeArticleStatus = function (article) {
 			var resourceURL = serviceBase + '/api/article/changeStatus';
-	        var promise = queryService.put(resourceURL, 'UTC');
+	        var promise = queryService.put(resourceURL, article, 'UTC');
 
 	        return promise;
 		};

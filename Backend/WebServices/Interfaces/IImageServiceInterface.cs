@@ -5,8 +5,8 @@ using System.Web;
 
 namespace WebServices.Interfaces
 {
-    public interface IImageHandlerInterface
+    public interface IImageServiceInterface
     {
-        string GenerateImageURLFromImageDataString(string imageDataString);
+        string GenerateImageURLFromImage(string base64Image, string imageName);
     }
 }

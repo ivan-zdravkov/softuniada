@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DAL;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using System;
 using System.Collections.Generic;

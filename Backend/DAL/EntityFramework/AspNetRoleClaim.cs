@@ -18,10 +18,6 @@ namespace DAL.EntityFramework
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
         public string RoleId { get; set; }
-        public string CreatedBy { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public string LastModifiedBy { get; set; }
-        public Nullable<System.DateTime> LastModifiedAt { get; set; }
     
         public virtual AspNetRole AspNetRole { get; set; }
     }

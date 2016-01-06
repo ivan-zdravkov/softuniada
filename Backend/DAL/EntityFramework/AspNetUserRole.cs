@@ -16,10 +16,6 @@ namespace DAL.EntityFramework
     {
         public string UserId { get; set; }
         public string RoleId { get; set; }
-        public string CreatedBy { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public string LastModifiedBy { get; set; }
-        public Nullable<System.DateTime> LastModifiedAt { get; set; }
     
         public virtual AspNetRole AspNetRole { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }

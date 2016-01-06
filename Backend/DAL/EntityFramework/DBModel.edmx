@@ -40,10 +40,6 @@
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -66,10 +62,6 @@
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
           <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="AspNetUserLogins">
           <Key>
@@ -81,10 +73,6 @@
           <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
@@ -93,10 +81,6 @@
           </Key>
           <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="450" />
-          <Property Name="LastModifiedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -366,10 +350,6 @@
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RoleId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetRole" Relationship="Self.FK_AspNetRoleClaims_AspNetRole" FromRole="AspNetRoleClaims" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="AspNetRole">
@@ -395,10 +375,6 @@
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetUserClaims_AspNetUsers" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
@@ -411,10 +387,6 @@
           <Property Name="LoginProvider" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderKey" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProviderDisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetUserLogins_AspNetUsers" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserRole">
@@ -424,10 +396,6 @@
           </Key>
           <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="LastModifiedBy" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AspNetRole" Relationship="Self.FK_AspNetUserRoles_AspNetRole" FromRole="AspNetUserRoles" ToRole="AspNetRoles" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetUserRoles_AspNetUser" FromRole="AspNetUserRoles" ToRole="AspNetUsers" />
         </EntityType>
@@ -703,11 +671,7 @@
                 <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="LastModifiedAt" ColumnName="LastModifiedAt" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
@@ -731,11 +695,7 @@
                 <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="LastModifiedAt" ColumnName="LastModifiedAt" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
@@ -745,11 +705,7 @@
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="ProviderDisplayName" ColumnName="ProviderDisplayName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="LastModifiedAt" ColumnName="LastModifiedAt" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserRoles">
@@ -757,11 +713,7 @@
               <MappingFragment StoreEntitySet="AspNetUserRoles">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="LastModifiedAt" ColumnName="LastModifiedAt" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">

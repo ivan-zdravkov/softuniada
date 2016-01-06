@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using WebServices.Interfaces;
@@ -11,7 +12,7 @@ namespace WebServices.Controllers
     [Authorize]
     public class ArticleController : BaseApiController
     {
-        private IImageHandlerInterface imageHandler = new CloudinaryImageHandler();
+        private IImageServiceInterface imageHandler = new CloudinaryImageService();
 
         [HttpGet]
         [Route("getAll")]
@@ -59,7 +60,10 @@ namespace WebServices.Controllers
         {
             if (ModelState.IsValid)
             {
-                article.Image = this.imageHandler.GenerateImageURLFromImageDataString(article.Image);
+                if (!String.IsNullOrEmpty(article.Image))
+                {
+                    article.ImageURL = this.imageHandler.GenerateImageURLFromImage(article.Image, article.Title);
+                }
 
                 ArticleOutputModel createdArticle = this.SoftuniadaDAL.CreateArticle(article, null);
 
@@ -78,7 +82,10 @@ namespace WebServices.Controllers
         {
             if (ModelState.IsValid)
             {
-                article.Image = this.imageHandler.GenerateImageURLFromImageDataString(article.Image);
+                if (!String.IsNullOrEmpty(article.Image))
+                {
+                    article.ImageURL = this.imageHandler.GenerateImageURLFromImage(article.Image, article.Title);
+                }
 
                 ArticleOutputModel createdArticle = this.SoftuniadaDAL.CreateArticle(article, article.StatusId);
 
@@ -97,7 +104,10 @@ namespace WebServices.Controllers
         {
             if (ModelState.IsValid)
             {
-                article.Image = this.imageHandler.GenerateImageURLFromImageDataString(article.Image);
+                if (!String.IsNullOrEmpty(article.Image))
+                {
+                    article.ImageURL = this.imageHandler.GenerateImageURLFromImage(article.Image, article.Title);
+                }
 
                 ArticleOutputModel updatedArticle = this.SoftuniadaDAL.UpdateArticle(articleId, article);
 
