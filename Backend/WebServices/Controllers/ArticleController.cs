@@ -1,7 +1,9 @@
 ﻿using DAL.Models;
 using System.Collections.Generic;
 using System.Web.Http;
+using WebServices.Interfaces;
 using WebServices.Models;
+using WebServices.Services;
 
 namespace WebServices.Controllers
 {
@@ -9,6 +11,8 @@ namespace WebServices.Controllers
     [Authorize]
     public class ArticleController : BaseApiController
     {
+        private IImageHandlerInterface imageHandler = new CloudinaryImageHandler();
+
         [HttpGet]
         [Route("getAll")]
         [AllowAnonymous]
@@ -54,7 +58,9 @@ namespace WebServices.Controllers
         public IHttpActionResult CreateArticle(ArticleInputModel article)
         {
             if (ModelState.IsValid)
-            { 
+            {
+                article.Image = this.imageHandler.GenerateImageURLFromImageDataString(article.Image);
+
                 ArticleOutputModel createdArticle = this.SoftuniadaDAL.CreateArticle(article, null);
 
                 return Ok(createdArticle);
@@ -72,6 +78,8 @@ namespace WebServices.Controllers
         {
             if (ModelState.IsValid)
             {
+                article.Image = this.imageHandler.GenerateImageURLFromImageDataString(article.Image);
+
                 ArticleOutputModel createdArticle = this.SoftuniadaDAL.CreateArticle(article, article.StatusId);
 
                 return Ok(createdArticle);
@@ -89,6 +97,8 @@ namespace WebServices.Controllers
         {
             if (ModelState.IsValid)
             {
+                article.Image = this.imageHandler.GenerateImageURLFromImageDataString(article.Image);
+
                 ArticleOutputModel updatedArticle = this.SoftuniadaDAL.UpdateArticle(articleId, article);
 
                 return Ok(updatedArticle);

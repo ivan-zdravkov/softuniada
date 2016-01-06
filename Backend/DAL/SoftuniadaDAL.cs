@@ -56,7 +56,7 @@ namespace DAL
                     Content = article.Text,
                     StatusId = article.StatusID,
                     CategoryId = article.CategoryID,
-                    //Image = article.HeaderPicture,
+                    Image = article.Image,
                     Tags = article.ArticleTags
                         .OrderBy(at => at.Tag.Name)
                         .Select(at => new BasicModel()
@@ -87,7 +87,7 @@ namespace DAL
                     Content = article.Text,
                     StatusId = article.StatusID,
                     CategoryId = article.CategoryID,
-                    //Image = article.HeaderPicture,
+                    Image = article.Image,
                     Tags = article.ArticleTags
                         .OrderBy(at => at.Tag.Name)
                         .Select(at => new BasicModel()
@@ -109,12 +109,12 @@ namespace DAL
                .OrderBy(a => a.Name)
                .Select(article => new ArticleOutputModel()
                {
-                   Id = article.Id,
-                   Title = article.Name,
-                   Content = article.Text,
-                   StatusId = article.StatusID,
-                   CategoryId = article.CategoryID,
-                    //Image = article.HeaderPicture,
+                    Id = article.Id,
+                    Title = article.Name,
+                    Content = article.Text,
+                    StatusId = article.StatusID,
+                    CategoryId = article.CategoryID,
+                    Image = article.Image,
                     Tags = article.ArticleTags
                        .OrderBy(at => at.Tag.Name)
                        .Select(at => new BasicModel()
@@ -141,7 +141,7 @@ namespace DAL
                    Content = article.Text,
                    StatusId = article.StatusID,
                    CategoryId = article.CategoryID,
-                   //Image = article.HeaderPicture,
+                   Image = article.Image,
                    Tags = article.ArticleTags
                        .OrderBy(at => at.Tag.Name)
                        .Select(at => new BasicModel()
@@ -161,7 +161,7 @@ namespace DAL
             article.Text = articleModel.Content;
             article.CategoryID = articleModel.CategoryId;
             article.StatusID = statusId.HasValue ? statusId.Value : (int)StatusesEnum.Pending;
-            //article.HeaderPicture = articleModel.Image;
+            article.Image = articleModel.Image;
 
             IEnumerable<BasicModel> existingTags = this.DB.Tags
                 .AsNoTracking()
@@ -213,7 +213,7 @@ namespace DAL
                 article.Name = articleModel.Title;
                 article.Text = articleModel.Content;
                 article.CategoryID = articleModel.CategoryId;
-                //article.HeaderPicture = articleModel.Image;
+                article.Image = articleModel.Image;
 
                 this.DB.ArticleTags.RemoveRange(article.ArticleTags);
 
