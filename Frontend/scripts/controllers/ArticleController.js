@@ -23,7 +23,9 @@ app.controller('ArticleController',
 			$scope.errorMessage = 'The article you are looking for does not exist.';
 			$scope.selectedStatus = {};
 			$scope.selectedCategory = {};
+			
 			$scope.inputTag = {};
+			$scope.inputTag.value = '';
 			
 			if ($scope.isCreateMode) {
 				$scope.article = {
@@ -40,7 +42,6 @@ app.controller('ArticleController',
 			if (($scope.isEditMode || $scope.isReadMode) && !isNaN($scope.articleId) && $scope.articleId > 0) {
 				requestQueue.push(articleService.getArticleById($scope.articleId).then(function (response) {
 					$scope.article = response;
-					$scope.article.selectedTags = [];
 				}));
 			}
 
@@ -125,7 +126,7 @@ app.controller('ArticleController',
 			};
 
 			$scope.save = function () {
-				$scope.article.tags = [];
+				$scope.article.tags = _.pluck($scope.article.selectedTags, 'name');
 				
 				if (!$scope.article.title || $scope.article.title.length < 1) {
 					$scope.invalidTitle = true;

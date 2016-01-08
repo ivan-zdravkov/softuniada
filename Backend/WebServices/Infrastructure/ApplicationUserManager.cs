@@ -20,7 +20,7 @@ namespace WebServices.Infrastructure
             var appDbContext = context.Get<ApplicationDbContext>();
             var appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
 
-            appUserManager.EmailService = new Services.EmailService();
+            appUserManager.EmailService = new Services.EmailService(true);
 
             if (options.DataProtectionProvider != null)
             {

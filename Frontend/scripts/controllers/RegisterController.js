@@ -71,6 +71,9 @@ app.controller('RegisterController',
 					notyService.successMessage('Registration successful. Please check your e-mail.', 5);
 					$rootScope.isDataLoading = false;
 					$location.path('/');
+				}, function(err) {
+					notyService.errorMessage(err.message, 5);
+					$rootScope.isDataLoading = false;
 				});
 				
 			}
