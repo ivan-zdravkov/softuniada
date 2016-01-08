@@ -23,9 +23,9 @@ namespace WebServices.Controllers
         [HttpPost]
         [Route("create")]
         [Authorize(Roles = "Administrator")]
-        public IHttpActionResult CreateCategory(string categoryName)
+        public IHttpActionResult CreateCategory(BasicModel category)
         {
-            int categoryId = this.SoftuniadaDAL.CreateCategory(categoryName);
+            int categoryId = this.SoftuniadaDAL.CreateCategory(category);
 
             return Ok(categoryId);
         }

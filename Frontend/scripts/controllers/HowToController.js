@@ -15,15 +15,22 @@ app.controller('HowToController',
 				$scope.showAllArticles();
 			}));
 
-			requestQueue.push(articleService.getAllStatuses().then(function (response) {
-				$scope.statuses = response;
-			}));
-
+			if ($rootScope.isAdmin) {
+				requestQueue.push(articleService.getAllStatuses().then(function (response) {
+					$scope.statuses = response;
+				}));
+			}
+			
 			requestQueue.push(categoryService.getAllCategories().then(function (response) {
 				$scope.categories = response;
 			}));
 
 			$q.all(requestQueue).then(function () {
+				$scope.articlesArray.forEach(function (article) {
+					if (!article.image) {
+						article.image = 'images/no_image_available.png';
+					}
+				});
 				$rootScope.isDataLoading = false;
 			}, function () {
 				notyService.errorMessage("Failed to load content.");
