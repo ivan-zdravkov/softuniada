@@ -60,6 +60,10 @@ app.controller('ArticleController',
 					if ($scope.isEditMode) {
 						$scope.selectedStatus = _.find($scope.statuses, { id: $scope.article.statusId });
 					}
+					
+					if (!$scope.article.image) {
+						$scope.article.image = 'images/no_image_available.png';
+					}
 				}
 				
 				$rootScope.isDataLoading = false;
