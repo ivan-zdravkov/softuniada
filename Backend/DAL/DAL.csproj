@@ -58,6 +58,7 @@
     <Compile Include="Models\ArticleOutputModel.cs" />
     <Compile Include="Models\ArticleStatusModel.cs" />
     <Compile Include="Models\BasicModel.cs" />
+    <Compile Include="Models\CategoryOutputModel.cs" />
     <Compile Include="SoftuniadaDAL.cs" />
     <Compile Include="EntityFramework\Article.cs">
       <DependentUpon>DBModel.tt</DependentUpon>

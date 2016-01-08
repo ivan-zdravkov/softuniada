@@ -25,8 +25,8 @@ app.factory('categoryService', ['authSettings', 'queryService',	function (authSe
         return promise;
 	};
 
-	var _deleteCategory = function () {
-		var resourceURL = serviceBase + '/api/category/delete';
+	var _deleteCategory = function (categoryId) {
+		var resourceURL = serviceBase + '/api/category/delete/' + categoryId;
         var promise = queryService.delete(resourceURL, 'UTC');
 
         return promise;

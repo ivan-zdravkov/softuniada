@@ -17,7 +17,9 @@
 		<div class="col-xs-12 col-padding-ignore margin-bottom-10">
 			<div class="col-xs-4">
 				<label for="image">Article image:</label>
-				<input type="file" fileread="article.image" id="image">
+				<br>
+				<button class="btn btn-danger margin-bottom-10" ng-click="removeImage()" ng-if="article.image.length">Remove Image</button>
+				<input id="fileSelect" type="file" fileread="article.image" id="image">
 			</div>
 			<div class="col-xs-4">
 				<div>
