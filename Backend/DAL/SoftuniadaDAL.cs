@@ -316,15 +316,16 @@ namespace DAL
         #endregion
 
         #region Categories
-        public IEnumerable<BasicModel> GetAllCategories()
+        public IEnumerable<CategoryOutputModel> GetAllCategories()
         {
             return this.DB.Categories
                 .AsNoTracking()
                 .OrderBy(c => c.Name)
-                .Select(c => new BasicModel()
+                .Select(c => new CategoryOutputModel()
                 {
                     Id = c.Id,
-                    Name = c.Name
+                    Name = c.Name,
+                    CanBeDeleted = !c.Articles.Any()
                 })
                 .ToList();
         }
@@ -337,7 +338,7 @@ namespace DAL
             this.DB.Categories.Add(categoryEntity);
             this.DB.SaveChanges();
 
-            return category.Id;
+            return categoryEntity.Id;
         }
 
         public void UpdateCategory(BasicModel categoryModel)

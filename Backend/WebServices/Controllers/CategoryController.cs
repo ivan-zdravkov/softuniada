@@ -15,7 +15,7 @@ namespace WebServices.Controllers
         [AllowAnonymous]
         public IHttpActionResult GetAllCategories()
         {
-            IEnumerable<BasicModel> allCategories = this.SoftuniadaDAL.GetAllCategories();
+            IEnumerable<CategoryOutputModel> allCategories = this.SoftuniadaDAL.GetAllCategories();
 
             return Ok(allCategories);
         }

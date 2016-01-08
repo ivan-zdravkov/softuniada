@@ -53,5 +53,10 @@ app.controller('ShareController',
 				});
 			}
 		};
+		
+		$scope.removeImage = function () {
+			$scope.article.image = null;
+			$('#fileSelect').val(null);
+		};
 	}]
 );

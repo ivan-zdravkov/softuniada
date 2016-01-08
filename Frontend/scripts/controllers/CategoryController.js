@@ -37,7 +37,7 @@ app.controller('CategoryController',
 
 			if (categoryForUpdate && categoryForUpdate.name && categoryForUpdate.name.length > 1) {
 				$rootScope.isDataLoading = true;
-				categoryService.createCategory($scope.newCategory).then(function () {
+				categoryService.updateCategory(categoryForUpdate).then(function () {
 					notyService.successMessage('Category successfully updated.');
 					$rootScope.isDataLoading = false;
 				});
@@ -51,9 +51,9 @@ app.controller('CategoryController',
 
 			if (categoryForDelete) {
 				$rootScope.isDataLoading = true;
-				categoryService.createCategory($scope.newCategory).then(function () {
+				categoryService.deleteCategory(categoryForDelete.id).then(function () {
 					$scope.categories = $scope.categories.filter(function (category) {
-						return category.id !== categoryId;
+						return category.id !== categoryForDelete.id;
 					});
 
 					notyService.successMessage('Category successfully deleted.');
