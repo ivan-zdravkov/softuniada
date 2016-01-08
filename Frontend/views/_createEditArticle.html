@@ -13,7 +13,7 @@
 				<p class="help-block" ng-if="invalidTitle">Please enter a title</p>
 			</div>
 		</div>
-
+		
 		<div class="col-xs-12 col-padding-ignore margin-bottom-10">
 			<div class="col-xs-4">
 				<label for="image">Article image:</label>
@@ -55,7 +55,6 @@
 				    <p class="help-block" ng-if="invalidCategory">Please select a category</p>
 				</div>
 			</div>
-			
 		</div>
 
 		<div class="col-xs-3 margin-bottom-10">
@@ -64,9 +63,31 @@
 			</label>
 		</div>
 
-		<div class="col-xs-12 margin-bottom-20">
+		<div class="col-xs-12 margin-bottom-10">
 			<div text-angular="" ng-model="article.content" ng-change="contentChange()" style="min-height:400px;"></div>
 			  <p class="help-block" ng-if="invalidContent">Please write an article content</p>
+		</div>
+		
+		<div class="col-xs-12 margin-bottom-20">
+			<label for="title">Tags: 
+				<span ng-repeat="selectedTag in article.selectedTags" class="padding-left-10"> 
+					{{selectedTag.name}} <span class="glyphicon glyphicon-remove small-red-glyphicon" ng-click="removeTag(selectedTag)"></span>
+				</span>
+			</label>
+			<div>
+				<input type="text" ng-model="inputTag.value" class="form-control" id="tag" placeholder="Enter tag" data-toggle="dropdown">
+				<ul class="dropdown-menu margin-left-15" role="menu">
+					<li ng-if="$index < 5" ng-repeat="tag in tags | tagFilter:inputTag.value:article.selectedTags">
+						<a ng-click="addTag(tag)" class="hover">{{tag.name}}</a>
+					</li>
+					<li ng-if="$index == 5" ng-repeat="tag in tags | tagFilter:inputTag.value:article.selectedTags">
+						<a>...</a>
+					</li>
+					<li ng-show="(tags | tagFilter:inputTag.value:article.selectedTags).length == 0 && !tagExists(inputTag.value)">
+						<a ng-click="addNewTag(inputTag.value)" class="hover">No tags found. Click here to create one.</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 
 		<div ng-if="isPreview" class="col-xs-12 margin-bottom-20 break-word">
@@ -74,7 +95,7 @@
 			</div>
 		</div>
 
-		<div class="col-xs-12">
+		<div class="col-xs-12 margin-bottom-50">
 			<div class="text-align-right">
 				<button ng-if="isEditMode && article.id > 0" type="submit" class="btn btn-danger float-left" ng-click="delete()" ng-disabled="isDataLoading">Delete</button>
 				<button type="submit" class="btn btn-default" ng-click="previewArticle()">Preview</button>

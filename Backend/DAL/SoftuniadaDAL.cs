@@ -57,7 +57,7 @@ namespace DAL
                     StatusId = article.StatusID,
                     CategoryId = article.CategoryID,
                     Image = article.Image,
-                    Tags = article.ArticleTags
+                    SelectedTags = article.ArticleTags
                         .OrderBy(at => at.Tag.Name)
                         .Select(at => new BasicModel()
                         {
@@ -88,7 +88,7 @@ namespace DAL
                     StatusId = article.StatusID,
                     CategoryId = article.CategoryID,
                     Image = article.Image,
-                    Tags = article.ArticleTags
+                    SelectedTags = article.ArticleTags
                         .OrderBy(at => at.Tag.Name)
                         .Select(at => new BasicModel()
                         {
@@ -115,7 +115,7 @@ namespace DAL
                     StatusId = article.StatusID,
                     CategoryId = article.CategoryID,
                     Image = article.Image,
-                    Tags = article.ArticleTags
+                    SelectedTags = article.ArticleTags
                        .OrderBy(at => at.Tag.Name)
                        .Select(at => new BasicModel()
                        {
@@ -142,7 +142,7 @@ namespace DAL
                    StatusId = article.StatusID,
                    CategoryId = article.CategoryID,
                    Image = article.Image,
-                   Tags = article.ArticleTags
+                   SelectedTags = article.ArticleTags
                        .OrderBy(at => at.Tag.Name)
                        .Select(at => new BasicModel()
                        {
@@ -163,7 +163,7 @@ namespace DAL
             article.StatusID = statusId.HasValue ? statusId.Value : (int)StatusesEnum.Pending;
             article.Image = articleModel.ImageURL ?? null;
 
-            IEnumerable<BasicModel> existingTags = this.DB.Tags
+            List<BasicModel> existingTags = this.DB.Tags
                 .AsNoTracking()
                 .Where(t => articleModel.Tags.Contains(t.Name))
                 .Select(t => new BasicModel()
@@ -182,14 +182,20 @@ namespace DAL
 
                 tagToCreate.Name = nonExistingTag;
 
-                article.ArticleTags.Add(new ArticleTag()
+                this.DB.Tags.Add(tagToCreate);
+                this.DB.SaveChanges();
+
+                existingTags.Add(new BasicModel()
                 {
-                    ArticleID = article.Id,
-                    TagID = tagToCreate.Id
+                    Id = tagToCreate.Id,
+                    Name = tagToCreate.Name
                 });
             }
-                
-            foreach(BasicModel existingTag in existingTags)
+
+            this.DB.Articles.Add(article);
+            this.DB.SaveChanges();
+
+            foreach (BasicModel existingTag in existingTags)
             {
                 article.ArticleTags.Add(new ArticleTag()
                 {
@@ -197,9 +203,6 @@ namespace DAL
                     TagID = existingTag.Id
                 });
             }
-
-            this.DB.Articles.Add(article);
-            this.DB.SaveChanges();
 
             return this.GetArticleById(article.Id);
         }
@@ -221,7 +224,7 @@ namespace DAL
 
                 this.DB.ArticleTags.RemoveRange(article.ArticleTags);
 
-                IEnumerable<BasicModel> existingTags = this.DB.Tags
+                List<BasicModel> existingTags = this.DB.Tags
                     .AsNoTracking()
                     .Where(t => articleModel.Tags.Contains(t.Name))
                     .Select(t => new BasicModel()
@@ -240,10 +243,13 @@ namespace DAL
 
                     tagToCreate.Name = nonExistingTag;
 
-                    article.ArticleTags.Add(new ArticleTag()
+                    this.DB.Tags.Add(tagToCreate);
+                    this.DB.SaveChanges();
+
+                    existingTags.Add(new BasicModel()
                     {
-                        ArticleID = article.Id,
-                        TagID = tagToCreate.Id
+                        Id = tagToCreate.Id,
+                        Name = tagToCreate.Name
                     });
                 }
 

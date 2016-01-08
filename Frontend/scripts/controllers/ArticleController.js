@@ -1,8 +1,8 @@
 'use strict';
 
 app.controller('ArticleController', 
-	['$scope', '$rootScope', '$q', '$routeParams', '$location', 'articleService', 'categoryService', 'notyService', 
-		function ($scope, $rootScope, $q, $routeParams, $location, articleService, categoryService, notyService) {
+	['$scope', '$rootScope', '$q', '$routeParams', '$location', 'articleService', 'categoryService', 'tagService', 'notyService', 
+		function ($scope, $rootScope, $q, $routeParams, $location, articleService, categoryService, tagService, notyService) {
 
 			$('html,body').scrollTop(0);
 			$rootScope.isDataLoading = false;
@@ -23,13 +23,17 @@ app.controller('ArticleController',
 			$scope.errorMessage = 'The article you are looking for does not exist.';
 			$scope.selectedStatus = {};
 			$scope.selectedCategory = {};
-
+			
+			$scope.inputTag = {};
+			$scope.inputTag.value = '';
+			
 			if ($scope.isCreateMode) {
 				$scope.article = {
 					id: 0,
 					title: '',
 					image: null,
-					content: ''
+					content: '',
+					selectedTags: []
 				};
 			}
 
@@ -49,6 +53,10 @@ app.controller('ArticleController',
 
 			requestQueue.push(categoryService.getAllCategories().then(function (response) {
 				$scope.categories = response;
+			}));
+			
+			requestQueue.push(tagService.getAllTags().then(function (response) {
+				$scope.tags = response;
 			}));
 
 			$q.all(requestQueue).then(function () {
@@ -122,7 +130,7 @@ app.controller('ArticleController',
 			};
 
 			$scope.save = function () {
-				$scope.article.tags = [];
+				$scope.article.tags = _.pluck($scope.article.selectedTags, 'name');
 				
 				if (!$scope.article.title || $scope.article.title.length < 1) {
 					$scope.invalidTitle = true;
@@ -191,6 +199,34 @@ app.controller('ArticleController',
 			$scope.removeImage = function () {
 				$scope.article.image = null;
 				$('#fileSelect').val(null);
+			};
+			
+			$scope.addTag = function (tag) {
+				$scope.inputTag.value = '';
+				
+				$scope.article.selectedTags.push(tag);
+			};
+			
+			$scope.addNewTag = function (inputTag) {
+				var tag = {
+					id: 0,
+					name: inputTag
+				};
+				
+				$scope.tags.push(tag);
+				$scope.addTag(tag);
+			};
+			
+			$scope.tagExists = function(inputTag) {
+				return _.filter($scope.article.selectedTags, function(selectedTag) {
+					return selectedTag.name == inputTag;
+				}).length > 0;
+			};
+			
+			$scope.removeTag = function (tagToRemove) {
+				$scope.article.selectedTags = _.filter($scope.article.selectedTags, function(selectedTag) {
+					return selectedTag.name != tagToRemove.name;
+				});
 			};
 		}
 	]

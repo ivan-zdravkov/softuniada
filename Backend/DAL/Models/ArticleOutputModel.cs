@@ -20,7 +20,7 @@ namespace DAL.Models
 
         public int CategoryId { get; set; }
 
-        public IEnumerable<BasicModel> Tags { get; set; }
+        public IEnumerable<BasicModel> SelectedTags { get; set; }
  
         public DateTime CreatedDate { get; set; }
     }

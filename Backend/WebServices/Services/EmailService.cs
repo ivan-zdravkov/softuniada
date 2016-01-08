@@ -12,10 +12,13 @@ namespace WebServices.Services
 {
     public class EmailService : IIdentityMessageService
     {
+        private bool isHtml;
         private SmtpClient mailClient = null;
-
-        public EmailService() : base()
+        
+        public EmailService(bool isHtml) : base()
         {
+            this.isHtml = isHtml;
+
             this.mailClient = new SmtpClient("smtp.gmail.com", 587)
             {
                 UseDefaultCredentials = false,
@@ -38,7 +41,7 @@ namespace WebServices.Services
             {
                 Subject = identityMessage.Subject,
                 Body = identityMessage.Body,
-                IsBodyHtml = true,
+                IsBodyHtml = this.isHtml,
             };
 
             await this.mailClient.SendMailAsync(message);

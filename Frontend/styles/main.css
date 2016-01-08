@@ -159,6 +159,14 @@ body {
 	bottom: 0;
 }
 
+.margin-5 {
+	margin: 5px;
+}
+
+.margin-left-15 {
+	margin-left: 15px;
+}
+
 .margin-bottom-50 {
 	margin-bottom: 50px
 }
@@ -273,6 +281,10 @@ body {
 	padding-right: 0;
 }
 
+.padding-left-10 {
+	padding-left: 10px;
+}
+
 .padding-bottom-20 {
 	padding-bottom: 20px;
 }
@@ -366,4 +378,9 @@ body {
 
 .visible {
 	visibility: visible !important;
+}
+
+.small-red-glyphicon {
+	font-size: 0.8em; 
+	color: red;
 }
