@@ -325,12 +325,12 @@ namespace DAL
                 .ToList();
         }
 
-        public int CreateCategory(string categoryName)
+        public int CreateCategory(BasicModel category)
         {
-            Category category = this.DB.Categories.Create();
-            category.Name = categoryName;
+            Category categoryEntity = this.DB.Categories.Create();
+            categoryEntity.Name = category.Name;
 
-            this.DB.Categories.Add(category);
+            this.DB.Categories.Add(categoryEntity);
             this.DB.SaveChanges();
 
             return category.Id;

@@ -47,6 +47,9 @@ app.controller('ShareController',
 					notyService.successMessage('Your message was sent successfully.');
 					$rootScope.isDataLoading = false;
 					$location.path('/');
+				}, function () {
+					notyService.errorMessage("Failed to send article.");
+					$rootScope.isDataLoading = false;
 				});
 			}
 		};

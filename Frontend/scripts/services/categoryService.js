@@ -13,7 +13,7 @@ app.factory('categoryService', ['authSettings', 'queryService',	function (authSe
 
 	var _createCategory = function (category) {
 		var resourceURL = serviceBase + '/api/category/create';
-        var promise = queryService.post(resourceURL, 'UTC');
+        var promise = queryService.post(resourceURL, category, 'UTC');
 
         return promise;
 	};

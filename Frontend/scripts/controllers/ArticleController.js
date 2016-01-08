@@ -63,6 +63,9 @@ app.controller('ArticleController',
 				}
 				
 				$rootScope.isDataLoading = false;
+			}, function () {
+				notyService.errorMessage("Failed to load necessary data.");
+				$rootScope.isDataLoading = false;
 			});
 
 			$scope.titleChange = function () {
