@@ -2,7 +2,7 @@
 
 ### What is this repository for? ###
 
-* Softuniada project, December 2015 - January 2016
+* The first [Softuniada](https://softuniada.softuni.bg/softuniada-2016/) edition, December 2015 - January 2016
 * Version 1.0.0
 
 ### How do I get set up? ###
@@ -14,7 +14,5 @@
 
 ### Who do I talk to? ###
 
-
 Ivan Zdravkov - ivanzdravkovbg@gmail.com
-
 Marin Takanov - mbtakanov@yahoo.com
