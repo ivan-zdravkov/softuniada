@@ -11,5 +11,5 @@
 * Database configuration - right click on "DataPopulation.publish.xml" in back-end project "DataPopulation" and then click "Publish"
 
 ## Who do I talk to ##
-Ivan Zdravkov - ivan@zdravkov.dev
-Marin Takanov - mbtakanov@yahoo.com
+* Ivan Zdravkov - ivan@zdravkov.dev
+* Marin Takanov - mbtakanov@yahoo.com
